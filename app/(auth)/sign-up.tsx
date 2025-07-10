@@ -5,8 +5,16 @@ import { icons, images } from "@/constants";
 import { useSignUp } from "@clerk/clerk-expo";
 import { Link, Redirect, useRouter } from "expo-router";
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Alert,
+  Animated,
+  Image,
+  Keyboard,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import ReactNativeModal from "react-native-modal";
 
 const SignUp = () => {
@@ -29,6 +37,57 @@ const SignUp = () => {
   const [countdown, setCountdown] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  // Animation values
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const opacityAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+        // Animate form section up and fade out top section
+        Animated.parallel([
+          Animated.timing(slideAnim, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacityAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+        ]).start();
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+        // Animate form section down and fade in top section
+        Animated.parallel([
+          Animated.timing(slideAnim, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacityAnim, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+          }),
+        ]).start();
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener?.remove();
+      keyboardDidHideListener?.remove();
+    };
+  }, [slideAnim, opacityAnim]);
 
   // This countdown should start after the user enters the verification code and verifies it
   useEffect(() => {
@@ -106,79 +165,111 @@ const SignUp = () => {
   };
 
   return (
-    <ScrollView
-      className="flex-1 bg-black"
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
-      <View className="w-full h-[400px] bg-primary-500 rounded-b-3xl">
-        <Image
-          source={images.signUp}
-          className="w-full h-[400px] rounded-b-3xl opacity-15"
-        />
-        <View className="absolute top-0 left-0 right-0 bottom-0">
+    <View className="flex-1 bg-black">
+      <ScrollView
+        className="flex-1"
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Top Image Section - Animated fade out when keyboard is visible */}
+        <Animated.View
+          className="w-full h-[400px] bg-primary-500 rounded-b-3xl"
+          style={{
+            opacity: opacityAnim,
+            transform: [
+              {
+                translateY: opacityAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-50, 0],
+                }),
+              },
+            ],
+          }}
+        >
           <Image
-            source={images.logo}
-            className="w-20 h-20 rounded-full mx-auto mt-40 z-10"
+            source={images.signUp}
+            className="w-full h-[400px] rounded-b-3xl opacity-15"
           />
-          <Text className="text-white text-3xl font-HelveticaNeueBold mx-5 mt-10 text-center z-10">
-            Create Account
-          </Text>
-        </View>
-      </View>
-      <View className="flex-1 bg-general-50 min-h-screen justify-center items-center">
-        <View className="bg-white w-full h-full rounded-3xl shadow-lg px-6 py-8 mt-[-40px] z-10">
-          <InputField
-            placeholder="Name"
-            icon={icons.person}
-            value={form.name}
-            onChangeText={(text) => setForm({ ...form, name: text })}
-            containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
-            inputStyle="bg-transparent"
-            isPassword={false}
-          />
-          <InputField
-            placeholder="Email"
-            icon={icons.email}
-            value={form.email}
-            onChangeText={(text) => setForm({ ...form, email: text })}
-            containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
-            inputStyle="bg-transparent"
-            isPassword={false}
-          />
-          {/* Implement show password feature */}
-          <InputField
-            placeholder="Password"
-            icon={icons.lock}
-            secureTextEntry={secureTextEntry}
-            value={form.password}
-            onChangeText={(text) => setForm({ ...form, password: text })}
-            containerStyle="border-b border-general-100 mb-6 rounded-none px-0"
-            inputStyle="bg-transparent"
-            isPassword={true}
-            setSecureTextEntry={setSecureTextEntry}
-          />
-          <CustomButton
-            title={isLoading ? "Signing Up..." : "Sign Up"}
-            className={`bg-primary-500 w-full mt-5 shadow-slate-400/70 ${
-              isLoading ? "opacity-50" : ""
-            }`}
-            onPress={onSignUpPress}
-            disabled={isLoading}
-          />
-          <OAuth />
-          <View className="flex-row justify-center items-center mt-8">
-            <Text>Already have an account? </Text>
-            <Link
-              href="/(auth)/sign-in"
-              className="text-center text-general-200"
-            >
-              <Text className="text-black font-HelveticaNeueBold underline">
-                Log In
-              </Text>
-            </Link>
+          <View className="absolute top-0 left-0 right-0 bottom-0">
+            <Image
+              source={images.logo}
+              className="w-20 h-20 rounded-full mx-auto mt-40 z-10"
+            />
+            <Text className="text-white text-3xl font-HelveticaNeueBold mx-5 mt-10 text-center z-10">
+              Create Account
+            </Text>
           </View>
-        </View>
-      </View>
+        </Animated.View>
+
+        {/* Form Section - Animated slide up when keyboard is visible */}
+        <Animated.View
+          className="bg-general-50 min-h-screen justify-center items-center"
+          style={{
+            transform: [
+              {
+                translateY: slideAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, -300], // Slide up by 300 units when keyboard is visible
+                }),
+              },
+            ],
+          }}
+        >
+          <View className="bg-white w-full h-full rounded-3xl shadow-lg px-6 py-8 mt-[-40px] z-10">
+            <InputField
+              placeholder="Name"
+              icon={icons.person}
+              value={form.name}
+              onChangeText={(text) => setForm({ ...form, name: text })}
+              containerStyle="border-b border-general-100 mb-1 rounded-none px-0"
+              inputStyle="bg-transparent"
+              isPassword={false}
+            />
+            <InputField
+              placeholder="Email"
+              icon={icons.email}
+              value={form.email}
+              onChangeText={(text) => setForm({ ...form, email: text })}
+              containerStyle="border-b border-general-100 mb-1 rounded-none px-0"
+              inputStyle="bg-transparent"
+              isPassword={false}
+            />
+            {/* Implement show password feature */}
+            <InputField
+              placeholder="Password"
+              icon={icons.lock}
+              secureTextEntry={secureTextEntry}
+              value={form.password}
+              onChangeText={(text) => setForm({ ...form, password: text })}
+              containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
+              inputStyle="bg-transparent"
+              isPassword={true}
+              setSecureTextEntry={setSecureTextEntry}
+            />
+            <CustomButton
+              title={isLoading ? "Signing Up..." : "Sign Up"}
+              className={`bg-primary-500 w-full mt-3 shadow-slate-400/70 ${
+                isLoading ? "opacity-50" : ""
+              }`}
+              onPress={onSignUpPress}
+              disabled={isLoading}
+            />
+            <OAuth isSignIn={false} />
+            <View className="flex-row justify-center items-center mt-8">
+              <Text>Already have an account? </Text>
+              <Link
+                href="/(auth)/sign-in"
+                className="text-center text-general-200"
+              >
+                <Text className="text-black font-HelveticaNeueBold underline">
+                  Log In
+                </Text>
+              </Link>
+            </View>
+          </View>
+        </Animated.View>
+      </ScrollView>
 
       <ReactNativeModal
         isVisible={verification.state === "pending"}
@@ -243,7 +334,7 @@ const SignUp = () => {
           {!countdown && <Redirect href="/" />}
         </View>
       </ReactNativeModal>
-    </ScrollView>
+    </View>
   );
 };
 
