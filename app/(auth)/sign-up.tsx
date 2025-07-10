@@ -195,11 +195,13 @@ const SignUp = () => {
           <Text className="font-Jakarta mb-5">
             We've sent a verification code to {form.email}
           </Text>
+          {/* Add border around the input field */}
           <InputField
             icon={icons.lock}
             placeholder="123456"
             value={verification.code}
             keyboardType="numeric"
+            containerStyle="border border-gray-500 rounded-full"
             onChangeText={(code) =>
               setVerification({
                 ...verification,
