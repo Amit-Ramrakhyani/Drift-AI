@@ -116,7 +116,11 @@ const Home = () => {
                     </Text>
                   </View>
                   <View className="bg-white/80 px-3 py-1 rounded-full flex-row items-center justify-center mt-14">
-                    <Image source={icons.star} className="w-4 h-4 mr-1" />
+                    <Image
+                      source={icons.starFilled}
+                      className="w-4 h-4 mr-1"
+                      tintColor="#FFC000"
+                    />
                     <Text className="font-bold text-black font-HelveticaNeueBlack">
                       15
                     </Text>

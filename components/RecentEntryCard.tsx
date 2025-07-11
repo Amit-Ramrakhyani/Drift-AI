@@ -25,14 +25,12 @@ const RecentEntryCard = ({ entry }: { entry: any }) => {
             <Image
               source={icons.happyFace}
               className="w-6 h-6"
-              tintColor="green"
               resizeMode="contain"
             />
           ) : entry.mood === "neutral" ? (
             <Image
               source={icons.neutralFace}
               className="w-6 h-6"
-              tintColor="blue"
               resizeMode="contain"
             />
           ) : (
@@ -40,7 +38,6 @@ const RecentEntryCard = ({ entry }: { entry: any }) => {
               source={icons.sadFace}
               className="w-6 h-6"
               resizeMode="contain"
-              tintColor="red"
             />
           )}
         </Text>
