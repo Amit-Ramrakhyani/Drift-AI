@@ -17,7 +17,7 @@ const RecentEntryCard = ({ entry }: { entry: any }) => {
   return (
     <View className="border border-black rounded-2xl p-4 mt-3">
       <View className="flex-row justify-between items-center mb-1">
-        <Text className="text-xs text-gray-700 font-HelveticaNeueMedium">
+        <Text className="text-sm text-gray-700 font-HelveticaNeueMedium">
           {isYesterday ? "Yesterday" : dateString}
         </Text>
         <Text className="text-xl">

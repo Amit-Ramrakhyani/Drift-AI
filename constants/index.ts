@@ -1,11 +1,8 @@
-import arrowDown from "@/assets/icons/arrow-down.png";
-import arrowUp from "@/assets/icons/arrow-up.png";
+import audio from "@/assets/icons/audio.png";
 import backArrow from "@/assets/icons/back-arrow.png";
-import chat from "@/assets/icons/chat.png";
-import checkmark from "@/assets/icons/check.png";
-import close from "@/assets/icons/close.png";
-import dollar from "@/assets/icons/dollar.png";
-import email from "@/assets/icons/email.png";
+import bin from "@/assets/icons/bin.png";
+import camera from "@/assets/icons/camera.png";
+import draw from "@/assets/icons/draw.png";
 import eye from "@/assets/icons/eye.png";
 import eyecross from "@/assets/icons/eyecross.png";
 import fancyButton from "@/assets/icons/fancy-button.png";
@@ -13,28 +10,27 @@ import google from "@/assets/icons/google.png";
 import happyFace from "@/assets/icons/happy-face.png";
 import homeFocused from "@/assets/icons/home-focused.png";
 import home from "@/assets/icons/home.png";
+import image from "@/assets/icons/image.png";
 import libraryFocused from "@/assets/icons/library-focused.png";
 import library from "@/assets/icons/library.png";
-import list from "@/assets/icons/list.png";
-import lock from "@/assets/icons/lock.png";
-import map from "@/assets/icons/map.png";
-import marker from "@/assets/icons/marker.png";
+import menuDots from "@/assets/icons/menu-dots.png";
+import mic from "@/assets/icons/mic.png";
 import neutralFace from "@/assets/icons/neutral-face.png";
 import out from "@/assets/icons/out.png";
-import person from "@/assets/icons/person.png";
-import pin from "@/assets/icons/pin.png";
+import pdf from "@/assets/icons/pdf.png";
 import plus from "@/assets/icons/plus.png";
-import point from "@/assets/icons/point.png";
+import print from "@/assets/icons/print.png";
 import profileFocused from "@/assets/icons/profile-focused.png";
 import profile from "@/assets/icons/profile.png";
+import reading from "@/assets/icons/reading.png";
 import reminderFocused from "@/assets/icons/reminder-focused.png";
 import reminder from "@/assets/icons/reminder.png";
 import sadFace from "@/assets/icons/sad-face.png";
-import search from "@/assets/icons/search.png";
-import selectedMarker from "@/assets/icons/selected-marker.png";
+import scan from "@/assets/icons/scan.png";
+import share from "@/assets/icons/share.png";
+import starFilled from "@/assets/icons/star-filled.png";
 import star from "@/assets/icons/star.png";
-import target from "@/assets/icons/target.png";
-import to from "@/assets/icons/to.png";
+import writing from "@/assets/icons/writing.png";
 import check from "@/assets/images/check.png";
 import darkGradient from "@/assets/images/dark-gradient.jpg";
 import getStarted from "@/assets/images/get-started.png";
@@ -66,43 +62,39 @@ export const images = {
 };
 
 export const icons = {
-    arrowDown,
-    arrowUp,
     backArrow,
-    chat,
-    checkmark,
-    close,
-    dollar,
-    email,
     eye,
     eyecross,
     google,
     home,
     homeFocused,
-    library,
-    libraryFocused,
+    reading,
+    writing,
     profile,
     profileFocused,
     reminder,
     reminderFocused,
-    list,
-    lock,
-    map,
-    marker,
     out,
-    person,
-    pin,
-    point,
-    search,
-    selectedMarker,
     star,
-    target,
-    to,
     plus,
     happyFace,
     neutralFace,
     sadFace,
-    fancyButton
+    fancyButton,
+    library,
+    libraryFocused,
+    pdf,
+    mic,
+    image,
+    camera,
+    scan,
+    audio,
+    draw,
+    starFilled,
+    menuDots,
+    bin,
+    print,
+    share,
 };
 
 
