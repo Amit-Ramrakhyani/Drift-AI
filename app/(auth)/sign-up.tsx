@@ -219,10 +219,10 @@ const SignUp = () => {
           <View className="bg-white w-full h-full rounded-3xl shadow-lg px-6 py-8 mt-[-40px] z-10">
             <InputField
               placeholder="Name"
-              icon={icons.person}
+              icon={icons.profile}
               value={form.name}
               onChangeText={(text) => setForm({ ...form, name: text })}
-              containerStyle="border-b border-general-100 mb-1 rounded-none px-0"
+              containerStyle="border-b border-gray-400 mb-1 rounded-none px-0"
               inputStyle="bg-transparent"
               isPassword={false}
             />
@@ -231,18 +231,18 @@ const SignUp = () => {
               icon={icons.email}
               value={form.email}
               onChangeText={(text) => setForm({ ...form, email: text })}
-              containerStyle="border-b border-general-100 mb-1 rounded-none px-0"
+              containerStyle="border-b border-gray-400 mb-1 rounded-none px-0"
               inputStyle="bg-transparent"
               isPassword={false}
             />
             {/* Implement show password feature */}
             <InputField
               placeholder="Password"
-              icon={icons.lock}
+              icon={icons.password}
               secureTextEntry={secureTextEntry}
               value={form.password}
               onChangeText={(text) => setForm({ ...form, password: text })}
-              containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
+              containerStyle="border-b border-gray-400 mb-4 rounded-none px-0"
               inputStyle="bg-transparent"
               isPassword={true}
               setSecureTextEntry={setSecureTextEntry}
@@ -288,11 +288,12 @@ const SignUp = () => {
           </Text>
           {/* Add border around the input field */}
           <InputField
-            icon={icons.lock}
+            icon={icons.password}
+            iconStyle="ml-4"
             placeholder="123456"
             value={verification.code}
             keyboardType="numeric"
-            containerStyle="border border-gray-500 rounded-full"
+            containerStyle="border border-gray-400 rounded-full"
             onChangeText={(code) =>
               setVerification({
                 ...verification,

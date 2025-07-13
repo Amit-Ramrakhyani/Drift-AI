@@ -175,16 +175,16 @@ const SignIn = () => {
               icon={icons.email}
               value={form.email}
               onChangeText={(text) => setForm({ ...form, email: text })}
-              containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
+              containerStyle="border-b border-gray-400 mb-4 rounded-none px-0"
               inputStyle="bg-transparent"
             />
             <InputField
               placeholder="Password"
-              icon={icons.lock}
+              icon={icons.password}
               secureTextEntry={secureTextEntry}
               value={form.password}
               onChangeText={(text) => setForm({ ...form, password: text })}
-              containerStyle="border-b border-general-100 mb-4 rounded-none px-0"
+              containerStyle="border-b border-gray-400 mb-4 rounded-none px-0"
               inputStyle="bg-transparent"
               isPassword={true}
               setSecureTextEntry={setSecureTextEntry}

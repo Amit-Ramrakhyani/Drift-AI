@@ -3,9 +3,11 @@ import backArrow from "@/assets/icons/back-arrow.png";
 import bin from "@/assets/icons/bin.png";
 import camera from "@/assets/icons/camera.png";
 import draw from "@/assets/icons/draw.png";
+import email from "@/assets/icons/email.png";
 import eye from "@/assets/icons/eye.png";
 import eyecross from "@/assets/icons/eyecross.png";
 import fancyButton from "@/assets/icons/fancy-button.png";
+import fire from "@/assets/icons/fire.png";
 import google from "@/assets/icons/google.png";
 import happyFace from "@/assets/icons/happy-face.png";
 import homeFocused from "@/assets/icons/home-focused.png";
@@ -17,6 +19,7 @@ import menuDots from "@/assets/icons/menu-dots.png";
 import mic from "@/assets/icons/mic.png";
 import neutralFace from "@/assets/icons/neutral-face.png";
 import out from "@/assets/icons/out.png";
+import password from "@/assets/icons/password.png";
 import pdf from "@/assets/icons/pdf.png";
 import plus from "@/assets/icons/plus.png";
 import print from "@/assets/icons/print.png";
@@ -95,6 +98,9 @@ export const icons = {
     bin,
     print,
     share,
+    fire,
+    email,
+    password,
 };
 
 

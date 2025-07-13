@@ -25,10 +25,14 @@ const InputField = ({
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View className="my-2 m-full">
         <View
-          className={`flex flex-row items-center justify-start relative rounded-full focus:border-primary-500 ${containerStyle}`}
+          className={`flex flex-row mx-2 items-center justify-start relative rounded-full focus:border-primary-500 ${containerStyle}`}
         >
           {icon && (
-            <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
+            <Image
+              source={icon}
+              className={`w-6 h-6 ${iconStyle}`}
+              tintColor="#444"
+            />
           )}
           <TextInput
             className={`rounded-full p-4 font-JakartaSemiBold text-[15px] flex-1 ${inputStyle} text-left`}
