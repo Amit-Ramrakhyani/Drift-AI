@@ -70,6 +70,9 @@ const Home = () => {
         ? "afternoon"
         : "evening";
 
+  // Console log the selected date in local time using phone settings
+  console.log(selectedDate.toLocaleString());
+
   return (
     <View className="flex-1 bg-white">
       {/* Flatlist of recent entries card */}
@@ -103,37 +106,7 @@ const Home = () => {
           <>
             <View className="flex-1 bg-white">
               <View className="flex-1">
-                {/* Top Gradient Section */}
-                {/* <View className="w-full h-[150px]">
-                <Image
-                  source={images.darkGradient}
-                  className="w-full h-full absolute opacity-50"
-                  resizeMode="cover"
-                />
-                <View className="px-4 pt-4 flex-row justify-between items-start mt-10">
-                  <View>
-                    <Text className="text-lg text-black mt-6 font-HelveticaNeueMedium">
-                      {dateString}
-                    </Text>
-                    <Text className="text-3xl font-HelveticaNeueHeavy">
-                      Good {timesOfDay}, {user?.firstName || "Nick"}!
-                    </Text>
-                  </View>
-                  <View className="bg-white/80 px-3 py-1 rounded-full flex-row items-center justify-center mt-14">
-                    <Image
-                      source={icons.fire}
-                      className="w-4 h-4 mr-1"
-                      // tintColor="#FFC000"
-                    />
-                    <Text className="font-bold text-black font-HelveticaNeueBlack">
-                      15
-                    </Text>
-                  </View>
-                </View>
-              </View> */}
-
                 {/* Top section */}
-
                 <View
                   className="w-full absolute top-0 left-0 h-[300px] z-0"
                   pointerEvents="none"

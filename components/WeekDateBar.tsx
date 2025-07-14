@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -48,21 +48,39 @@ const WeekDateBar: React.FC<WeekDateProps> = ({
   setSelectedDate,
 }) => {
   const today = new Date();
-
   const weeks = useMemo(
     () => getChunkedWeeks(today, startDate),
     [today, startDate]
   );
   const flatListRef = useRef<FlatList>(null);
+  const didInitialScroll = useRef(false);
 
-  React.useEffect(() => {
-    setTimeout(() => {
+  // Find the week index containing the selectedDate
+  const selectedWeekIndex = weeks.findIndex((week) =>
+    week.some((date) => isSameDay(date, selectedDate))
+  );
+
+  // Track the currently visible week index
+  const [visibleWeekIndex, setVisibleWeekIndex] = useState(weeks.length - 1);
+
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: Array<{ index: number | null }> }) => {
+      if (viewableItems.length > 0 && viewableItems[0].index !== null) {
+        setVisibleWeekIndex(viewableItems[0].index as number);
+      }
+    }
+  );
+
+  // Only scroll to the current week on initial mount or if the month changes
+  useEffect(() => {
+    if (!didInitialScroll.current && weeks.length > 0) {
       flatListRef.current?.scrollToIndex({
-        index: weeks.length - 1,
+        index: selectedWeekIndex !== -1 ? selectedWeekIndex : weeks.length - 1,
         animated: false,
       });
-    }, 0);
-  }, [weeks.length]);
+      didInitialScroll.current = true;
+    }
+  }, [weeks.length, startDate]);
 
   return (
     <View className="w-full items-center">
@@ -133,6 +151,8 @@ const WeekDateBar: React.FC<WeekDateProps> = ({
           </View>
         )}
         style={{ flexGrow: 0 }}
+        onViewableItemsChanged={onViewableItemsChanged.current}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
       />
     </View>
   );
