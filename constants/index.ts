@@ -2,6 +2,7 @@ import audio from "@/assets/icons/audio.png";
 import backArrow from "@/assets/icons/back-arrow.png";
 import bin from "@/assets/icons/bin.png";
 import camera from "@/assets/icons/camera.png";
+import deleteAccount from "@/assets/icons/delete-account.png";
 import draw from "@/assets/icons/draw.png";
 import email from "@/assets/icons/email.png";
 import eye from "@/assets/icons/eye.png";
@@ -22,7 +23,9 @@ import out from "@/assets/icons/out.png";
 import password from "@/assets/icons/password.png";
 import pdf from "@/assets/icons/pdf.png";
 import plus from "@/assets/icons/plus.png";
+import preferences from "@/assets/icons/preferences.png";
 import print from "@/assets/icons/print.png";
+import privacy from "@/assets/icons/privacy.png";
 import profileFocused from "@/assets/icons/profile-focused.png";
 import profile from "@/assets/icons/profile.png";
 import reading from "@/assets/icons/reading.png";
@@ -31,8 +34,10 @@ import reminder from "@/assets/icons/reminder.png";
 import sadFace from "@/assets/icons/sad-face.png";
 import scan from "@/assets/icons/scan.png";
 import share from "@/assets/icons/share.png";
+import signOut from "@/assets/icons/sign-out.png";
 import starFilled from "@/assets/icons/star-filled.png";
 import star from "@/assets/icons/star.png";
+import terms from "@/assets/icons/terms.png";
 import writing from "@/assets/icons/writing.png";
 import check from "@/assets/images/check.png";
 import darkGradient from "@/assets/images/dark-gradient.jpg";
@@ -101,6 +106,11 @@ export const icons = {
     fire,
     email,
     password,
+    preferences,
+    terms,
+    privacy,
+    deleteAccount,
+    signOut,
 };
 
 
