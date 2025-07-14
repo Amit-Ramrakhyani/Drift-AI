@@ -57,7 +57,7 @@ const Profile = () => {
           pointerEvents="none"
         >
           <LinearGradient
-            colors={["#EFF2FF", "#F9F3FF", "rgba(248,246,243,0.0)"]}
+            colors={["#FFE9E9", "#EFF2FF", "rgba(248,246,243,0.0)"]}
             style={{ width: "100%", height: "100%" }}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
