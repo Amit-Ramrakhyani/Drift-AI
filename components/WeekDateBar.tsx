@@ -97,7 +97,7 @@ const WeekDateBar: React.FC<WeekDateProps> = ({
           index,
         })}
         renderItem={({ item: week }) => (
-          <View className="flex-row px-2 w-full" style={{ width: screenWidth }}>
+          <View className="flex-row px-4 w-full" style={{ width: screenWidth }}>
             {week.map((date: Date, i: number) => {
               const isSelected = isSameDay(date, selectedDate);
               const isFuture = date > today;
@@ -113,16 +113,10 @@ const WeekDateBar: React.FC<WeekDateProps> = ({
                     <>
                       <View
                         className={`rounded-full bg-transparent border border-dashed w-10 h-10 items-center justify-center ${
-                          isSelected ? "border-black" : "border-gray-700"
+                          isSelected ? "border-black" : "border-gray-500"
                         }`}
                       >
-                        <Text
-                          className={`text-sm ${
-                            isSelected
-                              ? "font-HelveticaNeueHeavy"
-                              : "font-HelveticaNeueMedium"
-                          }`}
-                        >
+                        <Text className="text-md font-HelveticaNeueLight">
                           {dayNames[date.getDay()]}
                         </Text>
                       </View>

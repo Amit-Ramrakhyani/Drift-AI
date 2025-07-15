@@ -120,7 +120,7 @@ const Home = () => {
                 </View>
 
                 {/* Compant name with logo and streak icon */}
-                <View className="flex-row items-center justify-between px-4 mt-20 mb-8">
+                <View className="flex-row items-center justify-between px-5 mt-14 mb-8">
                   <View className="flex-row items-center">
                     <Image source={images.logo} className="w-8 h-8" />
                     <Text className="px-2 pt-1 text-2xl text-black font-HelveticaNeueMedium">
@@ -134,7 +134,7 @@ const Home = () => {
                       // tintColor="#FFC000"
                     />
                     <Text className="font-bold text-black font-HelveticaNeueBlack">
-                      15
+                      3
                     </Text>
                   </View>
                 </View>
@@ -152,7 +152,7 @@ const Home = () => {
                     You have been whispering for
                   </Text>
                   <Text className="text-5xl font-bold text-black font-HelveticaNeueBlack mt-2">
-                    <Text className="text-[#3A04FF]">15</Text> days
+                    <Text className="text-[#3A04FF]">3</Text> days
                   </Text>
                 </View>
                 <View className="items-end mx-4 mt-[-10px]">
