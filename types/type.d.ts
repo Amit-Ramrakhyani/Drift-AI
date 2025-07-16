@@ -19,3 +19,48 @@ declare interface InputFieldProps extends TextInputProps {
     isPassword?: boolean;
     setSecureTextEntry?: (secureTextEntry: boolean) => void;
 }
+
+declare interface ReminderFieldProps extends TextInputProps {
+  id: string;
+  title: string;
+  description?: string;
+  dueDateTime?: Date;
+  allDay?: boolean;
+
+  category?: string;
+  status?: "pending" | "completed" | "cancelled" | "missed";
+  priority?: "low" | "medium" | "high";
+
+  createdAt: Date;
+  updatedAt?: Date;
+  completedAt?: Date;
+
+  isStarred?: boolean;
+  isSnoozed?: boolean;
+
+  repeat?: {
+    type: "daily" | "weekly" | "monthly" | "yearly" | "custom";
+    interval?: number;
+    daysOfWeek?: ("Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun")[];
+  };
+
+//   location?: {
+//     name?: string;
+//     latitude: number;
+//     longitude: number;
+//     radius?: number;
+//     trigger?: "arrive" | "leave";
+//   };
+
+//   reminderAlarm?: {
+//     timeBefore: number; // in minutes
+//     method?: "notification" | "alarm";
+//   };
+
+  attachedImages?: {
+    uri: string;
+  }[];
+
+  tags?: string[];
+//   sourceApp?: string;
+}

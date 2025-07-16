@@ -1,4 +1,4 @@
-import WriteToolbar from "@/components/NotesToolbar";
+import NotesToolbar from "@/components/NotesToolbar";
 import { icons } from "@/constants";
 import { useUser } from "@clerk/clerk-expo";
 import * as ImagePicker from "expo-image-picker";
@@ -108,7 +108,7 @@ const Write = () => {
   return (
     <View className="flex-1 bg-black pt-10">
       {/* WriteToolbar */}
-      <WriteToolbar
+      <NotesToolbar
         title={title}
         onTitleChange={setTitle}
         isReadingMode={isReadingMode}

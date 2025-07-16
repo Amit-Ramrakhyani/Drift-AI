@@ -1,7 +1,11 @@
 import audio from "@/assets/icons/audio.png";
 import backArrow from "@/assets/icons/back-arrow.png";
 import bin from "@/assets/icons/bin.png";
+import calendarDay from "@/assets/icons/calendar-day.png";
 import camera from "@/assets/icons/camera.png";
+import checklist from "@/assets/icons/check-list.png";
+import check from "@/assets/icons/check.png";
+import clock from "@/assets/icons/clock.png";
 import deleteAccount from "@/assets/icons/delete-account.png";
 import draw from "@/assets/icons/draw.png";
 import email from "@/assets/icons/email.png";
@@ -16,6 +20,7 @@ import home from "@/assets/icons/home.png";
 import image from "@/assets/icons/image.png";
 import libraryFocused from "@/assets/icons/library-focused.png";
 import library from "@/assets/icons/library.png";
+import menuBurger from "@/assets/icons/menu-burger.png";
 import menuDots from "@/assets/icons/menu-dots.png";
 import mic from "@/assets/icons/mic.png";
 import neutralFace from "@/assets/icons/neutral-face.png";
@@ -33,13 +38,13 @@ import reminderFocused from "@/assets/icons/reminder-focused.png";
 import reminder from "@/assets/icons/reminder.png";
 import sadFace from "@/assets/icons/sad-face.png";
 import scan from "@/assets/icons/scan.png";
+import search from "@/assets/icons/search.png";
 import share from "@/assets/icons/share.png";
 import signOut from "@/assets/icons/sign-out.png";
 import starFilled from "@/assets/icons/star-filled.png";
 import star from "@/assets/icons/star.png";
 import terms from "@/assets/icons/terms.png";
 import writing from "@/assets/icons/writing.png";
-import check from "@/assets/images/check.png";
 import darkGradient from "@/assets/images/dark-gradient.jpg";
 import getStarted from "@/assets/images/get-started.png";
 import lightGradient from "@/assets/images/light-gradient.jpg";
@@ -59,7 +64,6 @@ export const images = {
     onboarding3,
     getStarted,
     signUpCar,
-    check,
     noResult,
     message,
     signUp,
@@ -111,6 +115,12 @@ export const icons = {
     privacy,
     deleteAccount,
     signOut,
+    search,
+    menuBurger,
+    clock,
+    checklist,
+    calendarDay,
+    check,
 };
 
 
