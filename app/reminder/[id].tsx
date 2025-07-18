@@ -1,12 +1,12 @@
 import { icons } from "@/constants";
 import { router, useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { reminders } from "../(root)/(tabs)/reminder";
+import { remindersList } from "../(root)/(tabs)/reminder";
 
 const ReminderScreen = () => {
   const { id } = useLocalSearchParams();
 
-  const reminder = reminders.find((reminder) => reminder.id === id);
+  const reminder = remindersList.find((reminder) => reminder.id === id);
 
   return (
     <View className="flex-1 bg-black">
@@ -25,7 +25,6 @@ const ReminderScreen = () => {
             />
           </TouchableOpacity>
 
-          {/* Star Button */}
           <TouchableOpacity className="p-2">
             <Image
               source={icons.star}
@@ -36,6 +35,7 @@ const ReminderScreen = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Reminder Details */}
         <ScrollView className="px-4 flex-1">
           <View className="flex-row items-center justify-between rounded-2xl bg-white mb-4">
             <Text className="text-xl font-HelveticaNeueMedium p-6">
@@ -64,8 +64,11 @@ const ReminderScreen = () => {
                     })}
                   </Text>
                 </View>
-                {/* Add a separator line */}
+
+                {/* Separator line */}
                 <View className="h-px items-center bg-gray-200 w-11/12 mx-auto" />
+
+                {/* Priority */}
                 <View className="flex-row items-center justify-between ">
                   <Image
                     source={icons.volume}
@@ -78,17 +81,19 @@ const ReminderScreen = () => {
                   </Text>
                 </View>
               </View>
+            </View>
+          )}
 
-              <View className="flex items-end justify-end">
-                <Text className="text-lg pl-6 py-6 capitalize text-gray-400">
-                  Completed:{" "}
-                  {reminder?.dueDateTime?.toLocaleString("en-US", {
-                    day: "numeric",
-                    month: "numeric",
-                    year: "numeric",
-                  })}
-                </Text>
-              </View>
+          {reminder?.status === "completed" && reminder?.completedAt && (
+            <View className="flex items-end justify-end">
+              <Text className="text-lg px-4 capitalize text-gray-400">
+                Completed:{" "}
+                {reminder?.completedAt?.toLocaleString("en-US", {
+                  day: "numeric",
+                  month: "numeric",
+                  year: "numeric",
+                })}
+              </Text>
             </View>
           )}
         </ScrollView>
