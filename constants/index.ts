@@ -1,7 +1,9 @@
+import angleLeft from "@/assets/icons/angle-left.png";
 import audio from "@/assets/icons/audio.png";
 import backArrow from "@/assets/icons/back-arrow.png";
 import bin from "@/assets/icons/bin.png";
 import calendarDay from "@/assets/icons/calendar-day.png";
+import calendarLines from "@/assets/icons/calendar-lines.png";
 import camera from "@/assets/icons/camera.png";
 import checklist from "@/assets/icons/check-list.png";
 import check from "@/assets/icons/check.png";
@@ -27,6 +29,7 @@ import neutralFace from "@/assets/icons/neutral-face.png";
 import out from "@/assets/icons/out.png";
 import password from "@/assets/icons/password.png";
 import pdf from "@/assets/icons/pdf.png";
+import pencil from "@/assets/icons/pencil.png";
 import plus from "@/assets/icons/plus.png";
 import preferences from "@/assets/icons/preferences.png";
 import print from "@/assets/icons/print.png";
@@ -36,6 +39,7 @@ import profile from "@/assets/icons/profile.png";
 import reading from "@/assets/icons/reading.png";
 import reminderFocused from "@/assets/icons/reminder-focused.png";
 import reminder from "@/assets/icons/reminder.png";
+import rotateRight from "@/assets/icons/rotate-right.png";
 import sadFace from "@/assets/icons/sad-face.png";
 import scan from "@/assets/icons/scan.png";
 import search from "@/assets/icons/search.png";
@@ -44,6 +48,7 @@ import signOut from "@/assets/icons/sign-out.png";
 import starFilled from "@/assets/icons/star-filled.png";
 import star from "@/assets/icons/star.png";
 import terms from "@/assets/icons/terms.png";
+import volume from "@/assets/icons/volume.png";
 import writing from "@/assets/icons/writing.png";
 import darkGradient from "@/assets/images/dark-gradient.jpg";
 import getStarted from "@/assets/images/get-started.png";
@@ -121,6 +126,11 @@ export const icons = {
     checklist,
     calendarDay,
     check,
+    angleLeft,
+    pencil,
+    rotateRight,
+    calendarLines,
+    volume,
 };
 
 
