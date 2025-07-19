@@ -193,7 +193,7 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
   );
 
   return (
-    <View className="flex-row items-center justify-between px-4 py-3 bg-white border-b border-gray-200 h-16">
+    <View className="flex-row items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-200 h-16">
       {/* Title Input */}
       <View className="flex-1 mr-4">
         <TextInput

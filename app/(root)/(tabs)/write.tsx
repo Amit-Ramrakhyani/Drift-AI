@@ -1,5 +1,6 @@
 import NotesToolbar from "@/components/NotesToolbar";
 import { icons } from "@/constants";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useUser } from "@clerk/clerk-expo";
 import * as ImagePicker from "expo-image-picker";
 import React, { useRef, useState } from "react";
@@ -19,6 +20,7 @@ const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 const Write = () => {
   const { user } = useUser();
+  const { theme } = useTheme();
   const [markdown, setMarkdown] = useState("");
   const [title, setTitle] = useState("");
   const [isReadingMode, setIsReadingMode] = useState(false);
@@ -106,7 +108,9 @@ const Write = () => {
   };
 
   return (
-    <View className="flex-1 bg-black pt-10">
+    <View
+      className={`flex-1 ${theme === "dark" ? "bg-black" : "bg-white"} pt-10`}
+    >
       {/* WriteToolbar */}
       <NotesToolbar
         title={title}
@@ -124,7 +128,7 @@ const Write = () => {
       />
 
       {/* Header Section */}
-      <View className="flex-row justify-between items-start w-full px-4 pt-4 bg-white">
+      <View className="flex-row justify-between items-start w-full px-4 pt-4 bg-gray-50">
         <View className="mt-2">
           <Text className="text-4xl font-HelveticaNeueBlack leading-8">
             HELLO
@@ -158,7 +162,7 @@ const Write = () => {
 
       {/* Journal Section */}
       <KeyboardAwareScrollView
-        className="flex-1 bg-white"
+        className="flex-1 bg-gray-50"
         enableOnAndroid={true}
         keyboardShouldPersistTaps="handled"
         extraScrollHeight={80}

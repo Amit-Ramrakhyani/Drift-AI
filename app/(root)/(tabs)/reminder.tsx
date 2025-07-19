@@ -1,9 +1,9 @@
 import ReminderItem from "@/components/ReminderItem";
 import ReminderToolBar from "@/components/ReminderToolBar";
+import { useTheme } from "@/contexts/ThemeContext";
 import { ReminderFieldProps } from "@/types/type";
 import React, { useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
-
 // Set const time to 18 July, 2025 16:20 PM
 const date = new Date(2025, 6, 18, 16, 17);
 
@@ -86,6 +86,7 @@ export const remindersList: ReminderFieldProps[] = [
 ];
 
 const Reminder = () => {
+  const { theme } = useTheme();
   const [reminders, setReminders] =
     useState<ReminderFieldProps[]>(remindersList);
   const [refreshing, setRefreshing] = useState(false);
@@ -153,7 +154,7 @@ const Reminder = () => {
   );
 
   return (
-    <View className="flex-1 bg-black">
+    <View className={`flex-1 ${theme === "dark" ? "bg-black" : "bg-white"}`}>
       <View className="flex-1 bg-gray-50 mt-10">
         <ReminderToolBar />
         <ScrollView

@@ -1,4 +1,5 @@
 import { icons } from "@/constants";
+import { useTheme } from "@/contexts/ThemeContext";
 import { ReminderFieldProps } from "@/types/type";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -16,6 +17,7 @@ import { remindersList } from "../(root)/(tabs)/reminder";
 
 const ReminderScreen = () => {
   const { id } = useLocalSearchParams();
+  const { theme } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [reminders, setReminders] = useState(remindersList);
   const [currentReminder, setCurrentReminder] = useState<
@@ -72,7 +74,7 @@ const ReminderScreen = () => {
   const reminder = remindersList.find((reminder) => reminder.id === id);
 
   return (
-    <View className="flex-1 bg-white">
+    <View className={`flex-1 ${theme === "dark" ? "bg-black" : "bg-white"}`}>
       <View className="flex-1 bg-gray-50 mt-10">
         {/* Top Section - Back Button and Star Button */}
         <View className="flex-row items-center justify-between px-6 py-3 mt-5">
