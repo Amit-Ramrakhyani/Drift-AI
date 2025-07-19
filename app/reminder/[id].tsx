@@ -1,15 +1,78 @@
 import { icons } from "@/constants";
+import { ReminderFieldProps } from "@/types/type";
 import { router, useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Image,
+  Keyboard,
+  TextInput as RNTextInput,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { remindersList } from "../(root)/(tabs)/reminder";
 
 const ReminderScreen = () => {
   const { id } = useLocalSearchParams();
+  const [isEditing, setIsEditing] = useState(false);
+  const [reminders, setReminders] = useState(remindersList);
+  const [currentReminder, setCurrentReminder] = useState<
+    ReminderFieldProps | undefined
+  >(reminders.find((reminder) => reminder.id === id));
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const inputRef = useRef<RNTextInput>(null);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (e) => {
+        setKeyboardHeight(e.endCoordinates.height);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardHeight(0);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener?.remove();
+      keyboardDidHideListener?.remove();
+    };
+  }, []);
+
+  const onSave = () => {
+    if (currentReminder) {
+      setReminders(
+        reminders.map((reminder) =>
+          reminder.id === id ? currentReminder : reminder
+        )
+      );
+    }
+    setIsEditing(false);
+    router.back();
+  };
+
+  const onCancel = () => {
+    setIsEditing(false);
+    router.back();
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    // Focus the input after a short delay to ensure the component is rendered
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
+  };
 
   const reminder = remindersList.find((reminder) => reminder.id === id);
 
   return (
-    <View className="flex-1 bg-black">
+    <View className="flex-1 bg-white">
       <View className="flex-1 bg-gray-50 mt-10">
         {/* Top Section - Back Button and Star Button */}
         <View className="flex-row items-center justify-between px-6 py-3 mt-5">
@@ -38,9 +101,22 @@ const ReminderScreen = () => {
         {/* Reminder Details */}
         <ScrollView className="px-4 flex-1">
           <View className="flex-row items-center justify-between rounded-2xl bg-white mb-4">
-            <Text className="text-xl font-HelveticaNeueMedium p-6">
-              lorem ipsum dolor sit amet snfne jefnjnsd feuindfs nfe eufe
-            </Text>
+            <TextInput
+              ref={inputRef}
+              className="text-xl font-HelveticaNeueMedium p-6"
+              multiline
+              value={currentReminder?.title}
+              onChangeText={(text) => {
+                if (currentReminder) {
+                  setCurrentReminder({
+                    ...currentReminder,
+                    title: text,
+                  });
+                }
+              }}
+              onFocus={() => setIsEditing(true)}
+              onBlur={() => setIsEditing(false)}
+            />
           </View>
 
           {reminder?.status === "completed" && reminder?.dueDateTime && (
@@ -98,18 +174,57 @@ const ReminderScreen = () => {
           )}
         </ScrollView>
 
-        {/* Bottom Section - Completed, Edit, Share, Delete Button */}
-        {reminder?.status === "pending" ? (
+        {/* Bottom Section - Different options based on editing state and reminder status */}
+        {reminder?.status === "pending" && !isEditing ? (
           <View className="flex-row items-center justify-between pl-4 pr-2 py-4">
-            <OptionsButton icon={icons.check} label="Complete" />
-            <OptionsButton icon={icons.pencil} label="Edit" />
-            <OptionsButton icon={icons.share} label="Share" />
-            <OptionsButton icon={icons.bin} label="Delete" />
+            <OptionsButton
+              icon={icons.check}
+              label="Complete"
+              onPress={() => {}}
+            />
+            <OptionsButton
+              icon={icons.pencil}
+              label="Edit"
+              onPress={handleEdit}
+            />
+            <OptionsButton
+              icon={icons.share}
+              label="Share"
+              onPress={() => {}}
+            />
+            <OptionsButton icon={icons.bin} label="Delete" onPress={() => {}} />
           </View>
-        ) : (
+        ) : reminder?.status === "pending" && isEditing ? (
+          // Fixed position buttons that move up with keyboard
+          <View
+            className="absolute left-0 right-0 bg-white p-4"
+            style={{
+              bottom: keyboardHeight,
+            }}
+          >
+            <View className="flex-row items-center justify-center">
+              <View className="flex-1 items-center">
+                <TouchableOpacity onPress={onCancel}>
+                  <Text className="text-xl font-bold">Cancel</Text>
+                </TouchableOpacity>
+              </View>
+              <View className="flex-1 items-center">
+                <TouchableOpacity onPress={onSave}>
+                  <Text className="text-xl font-bold">Save</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ) : null}
+
+        {reminder?.status === "completed" && (
           <View className="flex-row items-center justify-between pl-4 pr-2 py-4">
-            <OptionsButton icon={icons.rotateRight} label="Restore" />
-            <OptionsButton icon={icons.bin} label="Delete" />
+            <OptionsButton
+              icon={icons.rotateRight}
+              label="Restore"
+              onPress={() => {}}
+            />
+            <OptionsButton icon={icons.bin} label="Delete" onPress={() => {}} />
           </View>
         )}
       </View>
@@ -119,9 +234,17 @@ const ReminderScreen = () => {
 
 export default ReminderScreen;
 
-const OptionsButton = ({ icon, label }: { icon: any; label: string }) => {
+const OptionsButton = ({
+  icon,
+  label,
+  onPress,
+}: {
+  icon: any;
+  label: string;
+  onPress: () => void;
+}) => {
   return (
-    <TouchableOpacity className="flex-1 mr-5">
+    <TouchableOpacity className="flex-1 mr-5" onPress={onPress}>
       <View className="flex-col items-center">
         <Image
           source={icon}
