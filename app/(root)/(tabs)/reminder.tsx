@@ -61,6 +61,7 @@ export const remindersList: ReminderFieldProps[] = [
     dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 1),
     createdAt: new Date(),
     status: "pending",
+    priority: "medium",
   },
   {
     id: "7",

@@ -1,3 +1,4 @@
+import { formatTime } from "@/lib/utils";
 import { ReminderFieldProps } from "@/types/type";
 import { router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -26,7 +27,7 @@ const formatDate = ({ date }: { date: Date }) => {
   if (isToday) dateString = "Today";
   if (isTomorrow) dateString = "Tomorrow";
 
-  return `${dateString}, ${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  return `${dateString}, ${formatTime(date)}`;
 };
 
 const ReminderItem = ({ reminder }: { reminder: ReminderFieldProps }) => {

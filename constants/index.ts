@@ -5,9 +5,11 @@ import bin from "@/assets/icons/bin.png";
 import calendarDay from "@/assets/icons/calendar-day.png";
 import calendarLines from "@/assets/icons/calendar-lines.png";
 import camera from "@/assets/icons/camera.png";
+import checkCircle from "@/assets/icons/check-circle.png";
 import checklist from "@/assets/icons/check-list.png";
 import check from "@/assets/icons/check.png";
 import clock from "@/assets/icons/clock.png";
+import cross from "@/assets/icons/cross.png";
 import deleteAccount from "@/assets/icons/delete-account.png";
 import draw from "@/assets/icons/draw.png";
 import email from "@/assets/icons/email.png";
@@ -131,6 +133,8 @@ export const icons = {
     rotateRight,
     calendarLines,
     volume,
+    checkCircle,
+    cross,
 };
 
 

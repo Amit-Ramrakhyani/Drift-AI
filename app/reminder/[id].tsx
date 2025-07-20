@@ -1,11 +1,14 @@
 import { icons } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
+import { formatTime } from "@/lib/utils";
 import { ReminderFieldProps } from "@/types/type";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Image,
   Keyboard,
+  Platform,
   TextInput as RNTextInput,
   ScrollView,
   Text,
@@ -24,6 +27,9 @@ const ReminderScreen = () => {
     ReminderFieldProps | undefined
   >(reminders.find((reminder) => reminder.id === id));
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const inputRef = useRef<RNTextInput>(null);
 
   useEffect(() => {
@@ -59,6 +65,8 @@ const ReminderScreen = () => {
   };
 
   const onCancel = () => {
+    // reset the reminder to the original reminder
+    setCurrentReminder(reminders.find((reminder) => reminder.id === id));
     setIsEditing(false);
     router.back();
   };
@@ -69,6 +77,50 @@ const ReminderScreen = () => {
     setTimeout(() => {
       inputRef.current?.focus();
     }, 100);
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(false);
+    if (selectedDate && reminder) {
+      const currentTime = reminder.dueDateTime || new Date();
+      const newDateTime = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+        currentTime.getHours(),
+        currentTime.getMinutes(),
+        0
+      );
+      reminder.dueDateTime = newDateTime;
+      setReminders([...reminders]);
+    }
+  };
+
+  const handleTimeChange = (event: any, selectedTime?: Date) => {
+    setShowTimePicker(false);
+    if (selectedTime && reminder) {
+      const currentDate = reminder.dueDateTime || new Date();
+      const newDateTime = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate(),
+        selectedTime.getHours(),
+        selectedTime.getMinutes(),
+        0
+      );
+      reminder.dueDateTime = newDateTime;
+      setReminders([...reminders]);
+    }
+  };
+
+  const showDatePickerModal = () => {
+    setSelectedDate(reminder?.dueDateTime || new Date());
+    setShowDatePicker(true);
+  };
+
+  const showTimePickerModal = () => {
+    setSelectedDate(reminder?.dueDateTime || new Date());
+    setShowTimePicker(true);
   };
 
   const reminder = remindersList.find((reminder) => reminder.id === id);
@@ -102,7 +154,7 @@ const ReminderScreen = () => {
 
         {/* Reminder Details */}
         <ScrollView className="px-4 flex-1">
-          <View className="flex-row items-center justify-between rounded-2xl bg-white mb-4">
+          <View className="flex-col items-start justify-between rounded-2xl bg-white mb-4 min-h-[20%]">
             <TextInput
               ref={inputRef}
               className="text-xl font-HelveticaNeueMedium p-6"
@@ -117,50 +169,203 @@ const ReminderScreen = () => {
                 }
               }}
               onFocus={() => setIsEditing(true)}
-              onBlur={() => setIsEditing(false)}
+              editable={reminder?.status === "pending"}
             />
-          </View>
 
-          {reminder?.status === "completed" && reminder?.dueDateTime && (
-            <View className="mb-6">
-              <View className="flex-col items-start justify-between rounded-2xl bg-white">
-                <View className="flex-row items-center justify-between">
+            {/* Checkbox and Image Button */}
+            {isEditing && (
+              <View className="flex-row items-end justify-end w-full pr-4 pb-4">
+                <TouchableOpacity className="p-2">
                   <Image
-                    source={icons.calendarLines}
-                    className="w-6 h-6 ml-6"
+                    source={icons.checkCircle}
+                    className="w-6 h-6"
                     tintColor="#000"
                     resizeMode="contain"
                   />
-                  <Text className="text-xl font-HelveticaNeueRoman p-6">
-                    {reminder?.dueDateTime?.toLocaleString("en-US", {
-                      weekday: "short",
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}
-                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity className="p-2">
+                  <Image
+                    source={icons.image}
+                    className="w-6 h-6"
+                    tintColor="#000"
+                    resizeMode="contain"
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+
+          {reminder?.dueDateTime && !isEditing ? (
+            <View className="mb-6">
+              <View className="flex-col items-start justify-between rounded-2xl bg-white">
+                <TouchableOpacity
+                  disabled={reminder?.status === "completed"}
+                  onFocus={() => setIsEditing(true)}
+                  onPress={() => setIsEditing(true)}
+                >
+                  <View className="flex-row items-center justify-between">
+                    <Image
+                      source={icons.calendarLines}
+                      className="w-6 h-6 ml-6"
+                      tintColor="#000"
+                      resizeMode="contain"
+                    />
+                    <Text className="text-xl font-HelveticaNeueRoman p-6">
+                      {reminder?.dueDateTime?.toLocaleString("en-US", {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",
+                      })}
+                      , {formatTime(reminder?.dueDateTime)}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+
+                {/* Separator line */}
+                <View className="h-px items-center bg-gray-200 w-11/12 mx-auto" />
+
+                {/* Priority */}
+                <TouchableOpacity
+                  disabled={reminder?.status === "completed"}
+                  onFocus={() => setIsEditing(true)}
+                  onPress={() => setIsEditing(true)}
+                >
+                  <View className="flex-row items-center justify-between ">
+                    <Image
+                      source={icons.volume}
+                      className="w-6 h-6 ml-6"
+                      tintColor="#000"
+                      resizeMode="contain"
+                    />
+                    <Text className="text-xl font-HelveticaNeueRoman pl-6 py-6 capitalize">
+                      {reminder?.priority}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : !reminder?.dueDateTime && isEditing ? (
+            <View className="mb-6">
+              <TouchableOpacity
+                onPress={() => {
+                  const now = new Date();
+                  const roundedTime = new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate(),
+                    now.getHours() + 1,
+                    0,
+                    0
+                  );
+                  if (reminder) {
+                    reminder.dueDateTime = roundedTime;
+                    setReminders([...reminders]);
+                  }
+                }}
+              >
+                <View className="flex-col items-start justify-between rounded-2xl bg-white">
+                  <View className="flex-row items-center justify-between">
+                    <Image
+                      source={icons.calendarLines}
+                      className="w-6 h-6 ml-6"
+                      tintColor="#000"
+                      resizeMode="contain"
+                    />
+                    <Text className="text-xl font-HelveticaNeueRoman p-6 text-gray-400">
+                      Add time
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          ) : reminder?.dueDateTime && isEditing ? (
+            <View className="mb-6">
+              <View className="flex-col items-start justify-between rounded-2xl bg-white">
+                <View className="flex-col items-start justify-between w-full">
+                  <View className="flex-row items-center justify-between w-full">
+                    <View className="flex-row items-center">
+                      <Image
+                        source={icons.calendarLines}
+                        className="w-6 h-6 ml-6"
+                        tintColor="#000"
+                        resizeMode="contain"
+                      />
+                      <Text className="text-xl font-HelveticaNeueRoman p-6">
+                        Time
+                      </Text>
+                    </View>
+
+                    {/* Cross Icon */}
+                    <View className="pr-2">
+                      <TouchableOpacity
+                        onPress={() => {
+                          if (reminder) {
+                            reminder.dueDateTime = undefined;
+                            setReminders([...reminders]);
+                          }
+                        }}
+                        className="mr-4"
+                      >
+                        <Image
+                          source={icons.cross}
+                          className="w-5 h-5"
+                          tintColor="#000"
+                          resizeMode="contain"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+
+                  <View className="flex-row items-center justify-between mx-12">
+                    {/* Date */}
+                    <TouchableOpacity
+                      className="px-6"
+                      onPress={showDatePickerModal}
+                    >
+                      <Text className="text-xl font-HelveticaNeueRoman">
+                        {reminder?.dueDateTime?.toLocaleString("en-US", {
+                          weekday: "short",
+                          day: "numeric",
+                          month: "short",
+                        })}
+                      </Text>
+                    </TouchableOpacity>
+
+                    {/* Vertical Separator */}
+                    <View className="h-5 bg-gray-300 w-[2px]" />
+
+                    {/* Time */}
+                    <TouchableOpacity
+                      className="p-4"
+                      onPress={showTimePickerModal}
+                    >
+                      <Text className="text-xl font-HelveticaNeueRoman">
+                        {formatTime(reminder?.dueDateTime)}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
 
                 {/* Separator line */}
                 <View className="h-px items-center bg-gray-200 w-11/12 mx-auto" />
 
                 {/* Priority */}
-                <View className="flex-row items-center justify-between ">
-                  <Image
-                    source={icons.volume}
-                    className="w-6 h-6 ml-6"
-                    tintColor="#000"
-                    resizeMode="contain"
-                  />
-                  <Text className="text-xl font-HelveticaNeueRoman pl-6 py-6 capitalize">
-                    {reminder?.priority}
-                  </Text>
-                </View>
+                <TouchableOpacity>
+                  <View className="flex-row items-center justify-between ">
+                    <Image
+                      source={icons.volume}
+                      className="w-6 h-6 ml-6"
+                      tintColor="#000"
+                      resizeMode="contain"
+                    />
+                    <Text className="text-xl font-HelveticaNeueRoman pl-6 py-6 capitalize">
+                      {reminder?.priority || "Medium"}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-          )}
+          ) : null}
 
           {reminder?.status === "completed" && reminder?.completedAt && (
             <View className="flex items-end justify-end">
@@ -197,7 +402,6 @@ const ReminderScreen = () => {
             <OptionsButton icon={icons.bin} label="Delete" onPress={() => {}} />
           </View>
         ) : reminder?.status === "pending" && isEditing ? (
-          // Fixed position buttons that move up with keyboard
           <View
             className="absolute left-0 right-0 bg-white p-4"
             style={{
@@ -230,6 +434,26 @@ const ReminderScreen = () => {
           </View>
         )}
       </View>
+
+      {/* Date Picker Modal */}
+      {showDatePicker && (
+        <DateTimePicker
+          value={selectedDate}
+          mode="date"
+          display={Platform.OS === "ios" ? "spinner" : "default"}
+          onChange={handleDateChange}
+        />
+      )}
+
+      {/* Time Picker Modal */}
+      {showTimePicker && (
+        <DateTimePicker
+          value={selectedDate}
+          mode="time"
+          display={Platform.OS === "ios" ? "spinner" : "default"}
+          onChange={handleTimeChange}
+        />
+      )}
     </View>
   );
 };

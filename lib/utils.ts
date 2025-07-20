@@ -1,13 +1,8 @@
-export function formatTime(minutes: number): string {
-    const formattedMinutes = +minutes?.toFixed(0) || 0;
-
-    if (formattedMinutes < 60) {
-        return `${minutes} min`;
-    } else {
-        const hours = Math.floor(formattedMinutes / 60);
-        const remainingMinutes = formattedMinutes % 60;
-        return `${hours}h ${remainingMinutes}m`;
-    }
+// Format time in 24 hour format (e.g. 12:00, 23:00, 00:00)
+export function formatTime(time: Date): string {
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 }
 
 export function formatDate(dateString: string): string {
