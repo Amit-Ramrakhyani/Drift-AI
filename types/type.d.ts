@@ -29,7 +29,7 @@ declare interface ReminderFieldProps extends TextInputProps {
 
   category?: string;
   status?: "pending" | "completed" | "cancelled" | "missed";
-  priority?: "low" | "medium" | "high";
+  priority?: string | "low" | "medium" | "high";
 
   createdAt: Date;
   updatedAt?: Date;

@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   Image,
   Keyboard,
+  Modal,
   Platform,
   TextInput as RNTextInput,
   ScrollView,
@@ -30,6 +31,7 @@ const ReminderScreen = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showPriorityModal, setShowPriorityModal] = useState(false);
   const inputRef = useRef<RNTextInput>(null);
 
   useEffect(() => {
@@ -123,6 +125,58 @@ const ReminderScreen = () => {
     setShowTimePicker(true);
   };
 
+  const renderPriorityModal = (isVisible: boolean, onClose: () => void) => {
+    return (
+      <Modal
+        visible={isVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={onClose}
+      >
+        <TouchableOpacity
+          className="flex-1 bg-transparent"
+          activeOpacity={1}
+          onPress={onClose}
+        >
+          <View className="flex-col bg-white rounded-3xl py-4 shadow-lg shadow-black/40 w-[200px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            {["low", "medium", "high"].map((option, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  setShowPriorityModal(false);
+                  if (reminder) {
+                    reminder.priority = option;
+                    setReminders([...reminders]);
+                  }
+                }}
+                className="flex-row items-center py-3 px-4"
+              >
+                <View className="flex-row items-center justify-between w-full">
+                  <Text
+                    className={`text-xl capitalize flex-1 ${
+                      currentReminder?.priority === option
+                        ? "text-[#3A04FF]"
+                        : ""
+                    }`}
+                  >
+                    {option}
+                  </Text>
+                  {currentReminder?.priority === option && (
+                    <Image
+                      source={icons.check}
+                      className="w-6 h-6 ml-2"
+                      tintColor="#3A04FF"
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  };
+
   const reminder = remindersList.find((reminder) => reminder.id === id);
 
   return (
@@ -199,18 +253,19 @@ const ReminderScreen = () => {
             <View className="mb-6">
               <View className="flex-col items-start justify-between rounded-2xl bg-white">
                 <TouchableOpacity
+                  className="w-full p-6"
                   disabled={reminder?.status === "completed"}
                   onFocus={() => setIsEditing(true)}
                   onPress={() => setIsEditing(true)}
                 >
-                  <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center justify-start">
                     <Image
                       source={icons.calendarLines}
-                      className="w-6 h-6 ml-6"
+                      className="w-6 h-6"
                       tintColor="#000"
                       resizeMode="contain"
                     />
-                    <Text className="text-xl font-HelveticaNeueRoman p-6">
+                    <Text className="text-xl font-HelveticaNeueRoman pl-6">
                       {reminder?.dueDateTime?.toLocaleString("en-US", {
                         weekday: "short",
                         day: "numeric",
@@ -226,18 +281,19 @@ const ReminderScreen = () => {
 
                 {/* Priority */}
                 <TouchableOpacity
+                  className="w-full p-6"
                   disabled={reminder?.status === "completed"}
                   onFocus={() => setIsEditing(true)}
                   onPress={() => setIsEditing(true)}
                 >
-                  <View className="flex-row items-center justify-between ">
+                  <View className="flex-row items-center justify-start">
                     <Image
                       source={icons.volume}
-                      className="w-6 h-6 ml-6"
+                      className="w-6 h-6"
                       tintColor="#000"
                       resizeMode="contain"
                     />
-                    <Text className="text-xl font-HelveticaNeueRoman pl-6 py-6 capitalize">
+                    <Text className="text-xl font-HelveticaNeueRoman pl-6 capitalize">
                       {reminder?.priority}
                     </Text>
                   </View>
@@ -259,6 +315,7 @@ const ReminderScreen = () => {
                   );
                   if (reminder) {
                     reminder.dueDateTime = roundedTime;
+                    reminder.priority = "medium";
                     setReminders([...reminders]);
                   }
                 }}
@@ -350,8 +407,11 @@ const ReminderScreen = () => {
                 <View className="h-px items-center bg-gray-200 w-11/12 mx-auto" />
 
                 {/* Priority */}
-                <TouchableOpacity>
-                  <View className="flex-row items-center justify-between ">
+                <TouchableOpacity
+                  onPress={() => setShowPriorityModal(true)}
+                  className="w-full"
+                >
+                  <View className="flex-row items-center justify-start">
                     <Image
                       source={icons.volume}
                       className="w-6 h-6 ml-6"
@@ -359,7 +419,7 @@ const ReminderScreen = () => {
                       resizeMode="contain"
                     />
                     <Text className="text-xl font-HelveticaNeueRoman pl-6 py-6 capitalize">
-                      {reminder?.priority || "Medium"}
+                      {reminder?.priority}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -453,6 +513,10 @@ const ReminderScreen = () => {
           display={Platform.OS === "ios" ? "spinner" : "default"}
           onChange={handleTimeChange}
         />
+      )}
+
+      {renderPriorityModal(showPriorityModal, () =>
+        setShowPriorityModal(false)
       )}
     </View>
   );
