@@ -47,7 +47,7 @@ const LibraryNavbar: React.FC<LibraryNavbarProps> = ({
 
   return (
     <>
-      <View className="flex-row items-center justify-between rounded-3xl bg-black px-6 py-4 m-4 h-20 relative overflow-hidden shadow-md shadow-black">
+      <View className="flex-row items-center justify-between rounded-3xl bg-black px-6 py-4 m-4 mb-8 h-20 relative overflow-hidden shadow-md shadow-black">
         {optionLayouts.length === navbarOptions.length && (
           <Animated.View
             className="absolute h-16 rounded-3xl w-24 top-2 bg-white z-1"
