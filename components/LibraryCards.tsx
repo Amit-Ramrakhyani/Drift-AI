@@ -128,6 +128,9 @@ const WeeklyCard = ({ item }: { item: any }) => {
         onBackdropPress={() => {
           if (isMounted.current) setIsModalVisible(false);
         }}
+        onBackButtonPress={() => {
+          if (isMounted.current) setIsModalVisible(false);
+        }}
       >
         <View className="flex-col space-y-3">
           {filteredDailyEntries.length > 0 ? (
