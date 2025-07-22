@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, TouchableNativeFeedback, View } from "react-native";
 
 const DailyCard = ({ item }: { item: any }) => {
   const date = new Intl.DateTimeFormat("en-US", {
@@ -11,37 +11,44 @@ const DailyCard = ({ item }: { item: any }) => {
   }).format(item.date);
 
   return (
-    <View className="bg-white rounded-2xl p-4 shadow-md shadow-gray-300">
-      <View className="flex-row items-center justify-between">
-        <Text className="flex-1 min-w-0 text-xs text-gray-400 font-HelveticaNeueMedium uppercase">
-          {date}
-        </Text>
-        <Text className="flex-1 min-w-0 text-xs text-gray-400 font-HelveticaNeueMedium uppercase text-right">
-          {day}
-        </Text>
-      </View>
-
-      <Text className="text-xl font-HelveticaNeueBold my-2" numberOfLines={1}>
-        {item.title}
-      </Text>
-      <View className="flex-row flex-wrap gap-2 mb-3">
-        {item.tags.map((tag: string) => (
-          <Text
-            className="text-sm text-gray-400 font-HelveticaNeueMedium rounded-2xl border border-gray-400 px-2 capitalize flex-shrink-0 overflow-visible"
-            key={tag}
-          >
-            {tag}
+    <TouchableNativeFeedback
+      background={TouchableNativeFeedback.Ripple("#E5E7EB", false)}
+      onPress={() => {
+        console.log("Pressed");
+      }}
+    >
+      <View className="bg-white rounded-2xl p-4 shadow-md shadow-gray-300">
+        <View className="flex-row items-center justify-between">
+          <Text className="flex-1 min-w-0 text-xs text-gray-400 font-HelveticaNeueMedium uppercase">
+            {date}
           </Text>
-        ))}
-      </View>
+          <Text className="flex-1 min-w-0 text-xs text-gray-400 font-HelveticaNeueMedium uppercase text-right">
+            {day}
+          </Text>
+        </View>
 
-      <Text
-        className="text-sm text-gray-700 font-HelveticaNeueMedium"
-        numberOfLines={2}
-      >
-        {item.content}
-      </Text>
-    </View>
+        <Text className="text-xl font-HelveticaNeueBold my-2" numberOfLines={1}>
+          {item.title}
+        </Text>
+        <View className="flex-row flex-wrap gap-2 mb-3">
+          {item.tags.map((tag: string) => (
+            <Text
+              className="text-sm text-gray-400 font-HelveticaNeueMedium rounded-2xl border border-gray-400 px-2 capitalize flex-shrink-0 overflow-visible"
+              key={tag}
+            >
+              {tag}
+            </Text>
+          ))}
+        </View>
+
+        <Text
+          className="text-sm text-gray-700 font-HelveticaNeueMedium"
+          numberOfLines={2}
+        >
+          {item.content}
+        </Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 

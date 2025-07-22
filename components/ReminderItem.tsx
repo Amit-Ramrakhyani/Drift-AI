@@ -1,7 +1,12 @@
 import { formatTime } from "@/lib/utils";
 import { ReminderFieldProps } from "@/types/type";
 import { router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 // Format - Yesterday, 11:00 | Today, 16:00 | Tomorrow, 12:00 | Wed, 24 Jul, 15:00
 const formatDate = ({ date }: { date: Date }) => {
@@ -32,32 +37,34 @@ const formatDate = ({ date }: { date: Date }) => {
 
 const ReminderItem = ({ reminder }: { reminder: ReminderFieldProps }) => {
   return (
-    <View className="bg-white rounded-3xl m-2 p-2">
-      <TouchableOpacity
-        onPress={() => router.push(`/reminder/${reminder.id}`)}
-        className="flex-row items-center py-2 px-2 border-b border-gray-100 last:border-b-0"
-      >
-        <View className="flex-row items-start">
-          <TouchableOpacity className="w-6 h-6 rounded-full border-2 border-[#3A04FF] mr-4" />
-          <View className="flex-col items-start justify-between">
-            <Text className="text-lg text-black font-HelveticaNeueRomanr">
-              {reminder.title}
-            </Text>
-            {reminder.dueDateTime && (
-              <Text
-                className={`text-sm ${
-                  reminder.dueDateTime < new Date()
-                    ? "text-red-500"
-                    : "text-gray-500"
-                } mt-3`}
-              >
-                {formatDate({ date: reminder.dueDateTime })}
+    <TouchableNativeFeedback
+      onPress={() => router.push(`/reminder/${reminder.id}`)}
+      background={TouchableNativeFeedback.Ripple("#E5E7EB", false)}
+    >
+      <View className="bg-white rounded-3xl m-2 p-2">
+        <View className="flex-row items-center py-2 px-2 border-b border-gray-100 last:border-b-0">
+          <View className="flex-row items-start">
+            <TouchableOpacity className="w-6 h-6 rounded-full border-2 border-[#3A04FF] mr-4" />
+            <View className="flex-col items-start justify-between">
+              <Text className="text-lg text-black font-HelveticaNeueRomanr">
+                {reminder.title}
               </Text>
-            )}
+              {reminder.dueDateTime && (
+                <Text
+                  className={`text-sm ${
+                    reminder.dueDateTime < new Date()
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mt-3`}
+                >
+                  {formatDate({ date: reminder.dueDateTime })}
+                </Text>
+              )}
+            </View>
           </View>
         </View>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 
