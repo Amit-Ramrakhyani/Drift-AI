@@ -65,6 +65,7 @@ import onboarding3 from "@/assets/images/onboarding3.png";
 import signUpCar from "@/assets/images/signup-car.png";
 import signUp from "@/assets/images/signUp.jpg";
 import walkingGirl from "@/assets/images/walkingGirl.png";
+import { ReminderFieldProps } from "@/types/type";
 
 export const images = {
     onboarding1,
@@ -140,6 +141,170 @@ export const icons = {
 };
 
 
+export const dailyEntries = [
+  {
+    id: 1,
+    date: new Date("2025-07-02"),
+    title: "Daily Entry 1",
+    tags: [
+      "travel",
+      "food",
+      "culture",
+      "adventure",
+      "fun",
+      "new food",
+      "learning",
+    ],
+    content:
+      "The first day of the trip was amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 2,
+    date: new Date("2025-07-03"),
+    title: "Daily Entry 2",
+    tags: ["travel", "food", "culture"],
+    content:
+      "The second day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 3,
+    date: new Date("2025-07-04"),
+    title: "Daily Entry 3",
+    tags: ["travel", "food", "culture"],
+    content:
+      "The third day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 4,
+    date: new Date("2025-07-05"),
+    title: "Daily Entry 4",
+    tags: ["travel", "food", "culture"],
+    content:
+      "The fourth day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 5,
+    date: new Date("2025-07-06"),
+    title: "Daily Entry 5",
+    tags: ["travel", "food", "culture"],
+    content:
+      "The fifth day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 6,
+    date: new Date("2025-07-07"),
+    title: "Daily Entry 6",
+    tags: ["travel", "food", "culture"],
+    content:
+      "The sixth day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 7,
+    date: new Date("2025-07-11"),
+    title: "Daily Entry 7",
+    tags: ["travel", "food", "culture"],
+    content: "The seventh day of the trip was also amazing! There was a lot of fun activities to do and I met a lot of new people. And I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+];
+
+export const weeklyEntries = [
+  {
+    id: 1,
+    startWeek: new Date("2025-07-02"),
+    endWeek: new Date("2025-07-08"),
+    tags: ["travel", "food", "culture"],
+    shortSummary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place.",
+    summary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 2,
+    startWeek: new Date("2025-07-09"),
+    endWeek: new Date("2025-07-15"),
+    tags: ["travel", "food", "culture"],
+    shortSummary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place.",
+    summary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+  {
+    id: 3,
+    startWeek: new Date("2025-07-16"),
+    endWeek: new Date("2025-07-22"),
+    tags: ["travel", "food", "culture"],
+    shortSummary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place.",
+    summary:
+      "This week was amazing! I had a lot of fun and I also learned a lot about the culture of the place. I also got to see a lot of beautiful places. I also got to try a lot of new food. I had a lot of fun and I also learned a lot about the culture of the place.",
+  },
+];
+
+export const monthlyEntries = [
+  {
+    id: 1,
+    month: new Date("2025-07-01"),
+    title: "Monthly Entry 1",
+    shortSummary: "Monthly Entry 1 Description",
+  },
+  {
+    id: 2,
+    month: new Date("2025-08-01"),
+    title: "Monthly Entry 2",
+    shortSummary: "Monthly Entry 2 Description",
+  },
+];
+
+export const yearlyEntries = [
+  {
+    id: 1,
+    year: new Date("2025-01-01"),
+    title: "Yearly Entry 1",
+    shortSummary: "Yearly Entry 1 Description",
+  },
+  {
+    id: 2,
+    year: new Date("2026-01-01"),
+    title: "Yearly Entry 2",
+    shortSummary: "Yearly Entry 2 Description",
+  },
+];
+
+export const recentEntries = [
+  {
+    id: 1,
+    date: "2025-07-02",
+    title: "A day of small victories",
+    content:
+      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
+    mood: "good",
+  },
+  {
+    id: 2,
+    date: "2025-07-09",
+    title: "Morning Reflections",
+    content:
+      "Woke up early today. The sunrise was beautiful. Feeling a bit low due to cold and headache, but looking forward to the day ahead.",
+    mood: "neutral",
+  },
+  {
+    id: 3,
+    date: "2025-07-05",
+    title: "A day of small victories",
+    content:
+      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
+    mood: "bad",
+  },
+  {
+    id: 4,
+    date: "2025-07-08",
+    title: "A day of small victories",
+    content:
+      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
+    mood: "neutral",
+  },
+];
+
 export const onBoardingData = [
     {
         id: 1,
@@ -161,6 +326,91 @@ export const onBoardingData = [
     }
 ];
 
+export const remindersList: ReminderFieldProps[] = [
+  {
+    id: "1",
+    title: "Reminder 1",
+    description: "Description 1",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 1),
+    createdAt: new Date(),
+    status: "pending",
+    priority: "high",
+  },
+  {
+    id: "2",
+    title: "Reminder 2",
+    description: "Description 2",
+    dueDateTime: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2),
+    createdAt: new Date(),
+    status: "pending",
+    priority: "medium",
+  },
+  {
+    id: "4",
+    title: "Reminder 4",
+    description: "Description 4",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 4),
+    createdAt: new Date(),
+    status: "completed",
+    completedAt: new Date(),
+    priority: "low",
+  },
+  {
+    id: "5",
+    title: "Reminder 5",
+    description: "Description 5",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 5),
+    createdAt: new Date(),
+    status: "pending",
+    priority: "medium",
+  },
+  {
+    id: "6",
+    title: "Reminder 6",
+    description: "Description 6",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 6),
+    createdAt: new Date(),
+    status: "pending",
+    priority: "low",
+  },
+  {
+    id: "3",
+    title: "Reminder 3",
+    description: "Description 3",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 1),
+    createdAt: new Date(),
+    status: "pending",
+    priority: "medium",
+  },
+  {
+    id: "7",
+    title: "Reminder 7",
+    description: "Description 7",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
+    createdAt: new Date(),
+  },
+  {
+    id: "8",
+    title: "Reminder 8",
+    description: "Description 8",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 8),
+    createdAt: new Date(),
+  },
+  {
+    id: "9",
+    title: "Reminder 9",
+    description: "Description 9",
+    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 9),
+    createdAt: new Date(),
+  },
+];
+
 export const data = {
-    onBoardingData,
+    onBoardingData, 
+    dailyEntries,
+    weeklyEntries,
+    monthlyEntries,
+    yearlyEntries,
+    recentEntries,
+    remindersList
 }

@@ -1,7 +1,7 @@
 import NotePromptCard from "@/components/NotePromptCard";
 import RecentEntryCard from "@/components/RecentEntryCard";
 import WeekDateBar from "@/components/WeekDateBar";
-import { icons, images } from "@/constants";
+import { icons, images, recentEntries } from "@/constants";
 import { useUser } from "@clerk/clerk-expo";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -14,41 +14,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
-const recentEntries = [
-  {
-    id: 1,
-    date: "2025-07-02",
-    title: "A day of small victories",
-    content:
-      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
-    mood: "good",
-  },
-  {
-    id: 2,
-    date: "2025-07-09",
-    title: "Morning Reflections",
-    content:
-      "Woke up early today. The sunrise was beautiful. Feeling a bit low due to cold and headache, but looking forward to the day ahead.",
-    mood: "neutral",
-  },
-  {
-    id: 3,
-    date: "2025-07-05",
-    title: "A day of small victories",
-    content:
-      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
-    mood: "bad",
-  },
-  {
-    id: 4,
-    date: "2025-07-08",
-    title: "A day of small victories",
-    content:
-      "Today I managed to finish that project I’ve been putting off. It wasn’t as hard as I thought and I feel good about it. This means I can focus on the next project and I’m excited to see how it turns out.",
-    mood: "neutral",
-  },
-];
 
 const Home = () => {
   const { user } = useUser();

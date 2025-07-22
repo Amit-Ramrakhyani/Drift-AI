@@ -1,90 +1,10 @@
 import ReminderItem from "@/components/ReminderItem";
 import ReminderToolBar from "@/components/ReminderToolBar";
+import { remindersList } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import { ReminderFieldProps } from "@/types/type";
 import React, { useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
-// Set const time to 18 July, 2025 16:20 PM
-const date = new Date(2025, 6, 18, 16, 17);
-
-export const remindersList: ReminderFieldProps[] = [
-  {
-    id: "1",
-    title: "Reminder 1",
-    description: "Description 1",
-    dueDateTime: date,
-    createdAt: new Date(),
-    status: "pending",
-    priority: "high",
-  },
-  {
-    id: "2",
-    title: "Reminder 2",
-    description: "Description 2",
-    dueDateTime: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 2),
-    createdAt: new Date(),
-    status: "pending",
-    priority: "medium",
-  },
-  {
-    id: "4",
-    title: "Reminder 4",
-    description: "Description 4",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 4),
-    createdAt: new Date(),
-    status: "completed",
-    completedAt: new Date(),
-    priority: "low",
-  },
-  {
-    id: "5",
-    title: "Reminder 5",
-    description: "Description 5",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 5),
-    createdAt: new Date(),
-    status: "pending",
-    priority: "medium",
-  },
-  {
-    id: "6",
-    title: "Reminder 6",
-    description: "Description 6",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 6),
-    createdAt: new Date(),
-    status: "pending",
-    priority: "low",
-  },
-  {
-    id: "3",
-    title: "Reminder 3",
-    description: "Description 3",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 1),
-    createdAt: new Date(),
-    status: "pending",
-    priority: "medium",
-  },
-  {
-    id: "7",
-    title: "Reminder 7",
-    description: "Description 7",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
-    createdAt: new Date(),
-  },
-  {
-    id: "8",
-    title: "Reminder 8",
-    description: "Description 8",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 8),
-    createdAt: new Date(),
-  },
-  {
-    id: "9",
-    title: "Reminder 9",
-    description: "Description 9",
-    dueDateTime: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 9),
-    createdAt: new Date(),
-  },
-];
 
 const Reminder = () => {
   const { theme } = useTheme();
