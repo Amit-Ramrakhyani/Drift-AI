@@ -13,12 +13,70 @@ import {
 } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import React, { useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, RefreshControl, View } from "react-native";
 
 const Library = () => {
   const { theme } = useTheme();
   const [navbarState, setNavbarState] = useState<string>("daily");
   const navbarOptions = ["daily", "weekly", "monthly", "yearly"];
+  const [refreshing, setRefreshing] = useState(false);
+  const [editDailyEntries, setEditDailyEntries] = useState(dailyEntries);
+  const [editWeeklyEntries, setEditWeeklyEntries] = useState(weeklyEntries);
+  const [editMonthlyEntries, setEditMonthlyEntries] = useState(monthlyEntries);
+  const [editYearlyEntries, setEditYearlyEntries] = useState(yearlyEntries);
+
+  const onRefresh = ({ navbarState }: { navbarState: string }) => {
+    // Implement the refresh reminders logic here - fetching the latest reminders and update the reminders state
+    setRefreshing(true);
+    setTimeout(() => {
+      if (navbarState === "daily") {
+        setEditDailyEntries([
+          ...editDailyEntries,
+          {
+            id: 10,
+            date: new Date(),
+            title: "Reminder 10",
+            tags: ["tag1", "tag2"],
+            content:
+              "This is a new daily entry for testing the refresh functionality.",
+          },
+        ]);
+      } else if (navbarState === "weekly") {
+        setEditWeeklyEntries([
+          ...editWeeklyEntries,
+          {
+            id: 10,
+            startWeek: new Date(),
+            endWeek: new Date(),
+            tags: ["tag1", "tag2"],
+            shortSummary: "Short Summary 10",
+            summary: "Summary 10",
+          },
+        ]);
+      } else if (navbarState === "monthly") {
+        setEditMonthlyEntries([
+          ...editMonthlyEntries,
+          {
+            id: 10,
+            month: new Date(),
+            title: "Reminder 10",
+            shortSummary: "Short Summary 10",
+          },
+        ]);
+      } else if (navbarState === "yearly") {
+        setEditYearlyEntries([
+          ...editYearlyEntries,
+          {
+            id: 10,
+            year: new Date(),
+            title: "Reminder 10",
+            shortSummary: "Short Summary 10",
+          },
+        ]);
+      }
+      setRefreshing(false);
+    }, 1500);
+  };
 
   return (
     <View className={`flex-1 ${theme === "dark" ? "bg-black" : "bg-white"}`}>
@@ -30,7 +88,13 @@ const Library = () => {
         />
         {navbarState === "daily" && (
           <FlatList
-            data={dailyEntries.reverse()}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => onRefresh({ navbarState: "daily" })}
+              />
+            }
+            data={editDailyEntries.reverse()}
             renderItem={({ item }) => <DailyCard item={item} />}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
@@ -42,7 +106,13 @@ const Library = () => {
         )}
         {navbarState === "weekly" && (
           <FlatList
-            data={weeklyEntries.reverse()}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => onRefresh({ navbarState: "weekly" })}
+              />
+            }
+            data={editWeeklyEntries.reverse()}
             renderItem={({ item }) => <WeeklyCard item={item} />}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
@@ -54,7 +124,13 @@ const Library = () => {
         )}
         {navbarState === "monthly" && (
           <FlatList
-            data={monthlyEntries}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => onRefresh({ navbarState: "monthly" })}
+              />
+            }
+            data={editMonthlyEntries.reverse()}
             renderItem={({ item }) => <MonthlyCard item={item} />}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
@@ -66,7 +142,13 @@ const Library = () => {
         )}
         {navbarState === "yearly" && (
           <FlatList
-            data={yearlyEntries}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => onRefresh({ navbarState: "yearly" })}
+              />
+            }
+            data={editYearlyEntries.reverse()}
             renderItem={({ item }) => <YearlyCard item={item} />}
             keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={{
