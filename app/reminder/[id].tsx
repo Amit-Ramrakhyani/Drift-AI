@@ -1,4 +1,4 @@
-import { icons } from "@/constants";
+import { icons, remindersList } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import { formatTime } from "@/lib/utils";
 import { ReminderFieldProps } from "@/types/type";
@@ -17,7 +17,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { remindersList } from "../(root)/(tabs)/reminder";
 
 const ReminderScreen = () => {
   const { id } = useLocalSearchParams();
