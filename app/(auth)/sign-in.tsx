@@ -218,7 +218,7 @@ const SignIn = () => {
       <ReactNativeModal isVisible={showSuccessModal}>
         <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
           <Image
-            source={images.check}
+            source={images.greenCheck}
             className="w-[110px] h-[110px] mx-auto my-5"
           />
           <Text className="text-center text-3xl font-JakartaBold">

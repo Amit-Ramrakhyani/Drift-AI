@@ -52,6 +52,7 @@ import star from "@/assets/icons/star.png";
 import terms from "@/assets/icons/terms.png";
 import volume from "@/assets/icons/volume.png";
 import writing from "@/assets/icons/writing.png";
+import greenCheck from "@/assets/images/check.png";
 import darkGradient from "@/assets/images/dark-gradient.jpg";
 import getStarted from "@/assets/images/get-started.png";
 import lightGradient from "@/assets/images/light-gradient.jpg";
@@ -78,6 +79,7 @@ export const images = {
     lightGradient,
     walkingGirl,
     darkGradient,
+    greenCheck,
 };
 
 export const icons = {
