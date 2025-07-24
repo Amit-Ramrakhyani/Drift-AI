@@ -62,6 +62,7 @@ import noResult from "@/assets/images/no-result.png";
 import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
+import placeholder from "@/assets/images/placeholder.jpg";
 import signUpCar from "@/assets/images/signup-car.png";
 import signUp from "@/assets/images/signUp.jpg";
 import walkingGirl from "@/assets/images/walkingGirl.png";
@@ -81,6 +82,7 @@ export const images = {
     walkingGirl,
     darkGradient,
     greenCheck,
+    placeholder,
 };
 
 export const icons = {
@@ -243,15 +245,23 @@ export const weeklyEntries = [
 export const monthlyEntries = [
   {
     id: 1,
-    month: new Date("2025-07-01"),
-    title: "Monthly Entry 1",
-    shortSummary: "Monthly Entry 1 Description",
+    month: new Date("2025-06-01"),
+    majorTasks: ["Achieved the goal of losing 10 pounds", "Started a new project at work", "Finished the book", "Went on a date with a new person"],
   },
   {
     id: 2,
+    month: new Date("2025-07-01"),
+    majorTasks: ["Achieved the goal of losing 10 pounds", "Started a new project at work", "Finished the book"],
+  },
+  {
+    id: 3,
     month: new Date("2025-08-01"),
-    title: "Monthly Entry 2",
-    shortSummary: "Monthly Entry 2 Description",
+    majorTasks: ["Achieved the goal of losing 10 pounds", "Started a new project at work", "Finished the book"],
+  },
+  {
+    id: 4,
+    month: new Date("2025-09-01"),
+    majorTasks: ["Achieved the goal of losing 10 pounds", "Started a new project at work", "Finished the book"],
   },
 ];
 

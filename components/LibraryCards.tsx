@@ -1,6 +1,7 @@
-import { dailyEntries } from "@/constants";
+import { dailyEntries, images } from "@/constants";
 import { useEffect, useRef, useState } from "react";
 import {
+  Image,
   Text,
   TouchableNativeFeedback,
   TouchableOpacity,
@@ -180,21 +181,42 @@ const WeeklyCard = ({ item }: { item: any }) => {
 };
 
 const MonthlyCard = ({ item }: { item: any }) => {
-  const dateString = new Intl.DateTimeFormat("en-US", {
+  const month = new Intl.DateTimeFormat("en-US", {
     month: "long",
+  }).format(item.month);
+  const year = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
   }).format(item.month);
 
   return (
-    <View className="bg-white rounded-2xl p-4 shadow-md shadow-gray-300">
-      <Text className="text-sm text-gray-700 font-HelveticaNeueMedium">
-        {dateString}
-      </Text>
-      <Text className="text-xl font-HelveticaNeueBold">{item.title}</Text>
-      <Text className="text-sm text-gray-700 font-HelveticaNeueMedium">
-        {item.shortSummary}
-      </Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => {
+        console.log("Pressed");
+      }}
+    >
+      <View className="rounded-3xl shadow-md shadow-gray-300">
+        <View className="rounded-t-3xl overflow-hidden">
+          <Image source={images.placeholder} className="w-full h-60" />
+        </View>
+        <View className="flex-1 bg-white w-full rounded-b-3xl p-4">
+          <View className="flex-row items-center justify-between">
+            <View className="flex-row items-center justify-between">
+              <Text
+                className="text-xl text-gray-500 font-HelveticaNeueMedium uppercase"
+                style={{ letterSpacing: 4 }}
+              >
+                {month} {year}
+              </Text>
+            </View>
+            <View className="flex-1 items-end justify-end">
+              <Text className="text-sm text-gray-400 font-HelveticaNeueMedium">
+                {item.majorTasks.length} achievements
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

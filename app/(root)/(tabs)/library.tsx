@@ -58,9 +58,8 @@ const Library = () => {
           ...editMonthlyEntries,
           {
             id: 10,
-            month: new Date(),
-            title: "Reminder 10",
-            shortSummary: "Short Summary 10",
+            month: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+            majorTasks: ["Task 1", "Task 2", "Task 3"],
           },
         ]);
       } else if (navbarState === "yearly") {
