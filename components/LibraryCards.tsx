@@ -226,15 +226,21 @@ const YearlyCard = ({ item }: { item: any }) => {
   }).format(item.year);
 
   return (
-    <View className="bg-white rounded-2xl p-4 shadow-md shadow-gray-300">
-      <Text className="text-sm text-gray-700 font-HelveticaNeueMedium">
-        {dateString}
-      </Text>
-      <Text className="text-xl font-HelveticaNeueBold">{item.title}</Text>
-      <Text className="text-sm text-gray-700 font-HelveticaNeueMedium">
-        {item.shortSummary}
-      </Text>
-    </View>
+    <TouchableNativeFeedback
+      background={TouchableNativeFeedback.Ripple("#E5E7EB", false)}
+      onPress={() => {
+        console.log("Pressed");
+      }}
+    >
+      <View className="flex-col items-center justify-center bg-white rounded-2xl p-4 shadow-md shadow-gray-300 h-[200px]">
+        <Text
+          className="text-center text-3xl text-gray-500 font-HelveticaNeueMedium"
+          style={{ letterSpacing: 6 }}
+        >
+          {dateString}
+        </Text>
+      </View>
+    </TouchableNativeFeedback>
   );
 };
 

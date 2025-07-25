@@ -68,7 +68,7 @@ const Library = () => {
           {
             id: 10,
             year: new Date(),
-            title: "Reminder 10",
+            title: "Yearly Entry 10",
             shortSummary: "Short Summary 10",
           },
         ]);
