@@ -19,8 +19,13 @@ function isSameDay(a: Date, b: Date) {
 }
 
 function getChunkedWeeks(today: Date, startDate: Date) {
+  const weekStart = new Date(startDate);
+  weekStart.setDate(
+    startDate.getDate() - ((today.getDate() - startDate.getDate()) % 7)
+  );
+
   const days = [];
-  let dt = new Date(startDate);
+  let dt = new Date(weekStart);
   while (dt <= today) {
     days.push(new Date(dt));
     dt.setDate(dt.getDate() + 1);
