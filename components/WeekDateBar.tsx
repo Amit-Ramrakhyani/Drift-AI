@@ -83,7 +83,7 @@ const WeekDateBar: React.FC<WeekDateProps> = ({
   }, [weeks.length, startDate]);
 
   return (
-    <View className="w-full items-center">
+    <View className="w-full items-center mb-4">
       <FlatList
         ref={flatListRef}
         data={weeks}

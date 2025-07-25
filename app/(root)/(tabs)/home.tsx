@@ -40,6 +40,46 @@ const Home = () => {
 
   return (
     <View className="flex-1 bg-white">
+      {/* Top section */}
+      <View
+        className="w-full absolute top-0 left-0 h-[150px] z-0"
+        pointerEvents="none"
+      >
+        <LinearGradient
+          colors={["#FFE9E9", "#EFF2FF", "rgba(248,246,243,0.0)"]}
+          style={{ width: "100%", height: "100%" }}
+          start={{ x: 0.5, y: 0 }}
+          end={{ x: 0.5, y: 1 }}
+        />
+      </View>
+
+      {/* Compant name with logo and streak icon */}
+      <View className="flex-row items-center justify-between px-5 mt-14 mb-6">
+        <View className="flex-row items-center">
+          <Image source={images.logo} className="w-8 h-8" />
+          <Text className="px-2 pt-1 text-2xl text-black font-HelveticaNeueMedium">
+            Drift AI
+          </Text>
+        </View>
+        <View className="bg-white/80 px-3 py-1 rounded-full flex-row items-center justify-center">
+          <Image
+            source={icons.fire}
+            className="w-4 h-4 mr-1"
+            // tintColor="#FFC000"
+          />
+          <Text className="font-bold text-black font-HelveticaNeueBlack">
+            3
+          </Text>
+        </View>
+      </View>
+
+      {/* Date Bar */}
+      <WeekDateBar
+        startDate={new Date(date.getFullYear(), date.getMonth(), 1)}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+
       {/* Flatlist of recent entries card */}
       <FlatList
         data={recentEntries}
@@ -71,46 +111,6 @@ const Home = () => {
           <>
             <View className="flex-1 bg-white">
               <View className="flex-1">
-                {/* Top section */}
-                <View
-                  className="w-full absolute top-0 left-0 h-[300px] z-0"
-                  pointerEvents="none"
-                >
-                  <LinearGradient
-                    colors={["#FFE9E9", "#EFF2FF", "rgba(248,246,243,0.0)"]}
-                    style={{ width: "100%", height: "100%" }}
-                    start={{ x: 0.5, y: 0 }}
-                    end={{ x: 0.5, y: 1 }}
-                  />
-                </View>
-
-                {/* Compant name with logo and streak icon */}
-                <View className="flex-row items-center justify-between px-5 mt-14 mb-8">
-                  <View className="flex-row items-center">
-                    <Image source={images.logo} className="w-8 h-8" />
-                    <Text className="px-2 pt-1 text-2xl text-black font-HelveticaNeueMedium">
-                      Drift AI
-                    </Text>
-                  </View>
-                  <View className="bg-white/80 px-3 py-1 rounded-full flex-row items-center justify-center">
-                    <Image
-                      source={icons.fire}
-                      className="w-4 h-4 mr-1"
-                      // tintColor="#FFC000"
-                    />
-                    <Text className="font-bold text-black font-HelveticaNeueBlack">
-                      3
-                    </Text>
-                  </View>
-                </View>
-
-                {/* Date Bar */}
-                <WeekDateBar
-                  startDate={new Date(date.getFullYear(), date.getMonth(), 1)}
-                  selectedDate={selectedDate}
-                  setSelectedDate={setSelectedDate}
-                />
-
                 {/* Whispering Streak Section */}
                 <View className="justify-between items-start px-4 mt-6">
                   <Text className="text-2xl text-black font-semibold font-HelveticaNeueLight pr-10">
