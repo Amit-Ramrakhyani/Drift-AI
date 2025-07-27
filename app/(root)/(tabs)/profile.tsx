@@ -1,6 +1,5 @@
 import { icons } from "@/constants";
-import { SignOut } from "@/lib/auth";
-import { useUser } from "@clerk/clerk-expo";
+import { useClerk, useUser } from "@clerk/clerk-expo";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import {
@@ -18,6 +17,7 @@ const supportEmail = "support@driftai.com";
 
 const Profile = () => {
   const { user } = useUser();
+  const { signOut } = useClerk();
   const router = useRouter();
 
   // Handlers for navigation
@@ -45,6 +45,15 @@ const Profile = () => {
         },
       ]
     );
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      router.push("/");
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
+    }
   };
 
   return (
@@ -139,7 +148,7 @@ const Profile = () => {
             <ProfileItem
               icon={icons.signOut}
               label="Sign Out"
-              onPress={SignOut}
+              onPress={handleSignOut}
             />
           </View>
 
