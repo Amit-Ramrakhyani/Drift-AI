@@ -1,10 +1,8 @@
-import { neon } from "@neondatabase/serverless";
-
+import { supabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
     try {
-        const sql = neon(`${process.env.DATABASE_URL}`);
-
+        console.log("POST request received");
         const { name, email, clerkId } = await request.json();
 
         if (!name || !email || !clerkId) {
@@ -14,23 +12,27 @@ export async function POST(request: Request) {
             );
         }
 
-        const response = await sql`
+        console.log("Inserting user data:", { name, email, clerkId });
 
-        INSERT INTO users (
-            name,
-            email,
-            clerk_id
-        )
-        VALUES (
-            ${name},
-            ${email},
-            ${clerkId}
-        )
-        `;
+        const { data, error } = await supabase.from("users").insert({
+            // TODO: Generate UUID based on clerkId
+            name: name,
+            email: email,
+            clerk_id: clerkId,
+        });
+        
+        if (error) {
+            console.error("Supabase error:", error);
+            return Response.json({ error: error.message }, { status: 500 });
+        }
 
-        return new Response(JSON.stringify({ data: response }), { status: 200 });
+        console.log("User created successfully:", data);
+
+        return Response.json({ data: data }, { status: 200 });
     } catch (error) {
-        console.log(error);
-        return Response.json({ error: error }, { status: 500 });
+        console.error("API error:", error);
+        return Response.json({ 
+            error: error instanceof Error ? error.message : "Unknown error" 
+        }, { status: 500 });
     }
 }
