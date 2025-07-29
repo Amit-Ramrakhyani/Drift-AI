@@ -23,6 +23,14 @@ interface NotesToolbarProps {
   onPrint: () => void;
   onDelete: () => void;
   isStarred: boolean;
+  isSaving?: boolean;
+  isSyncing?: boolean;
+  syncStatus?: {
+    hasUnsyncedNotes: boolean;
+    unsyncedCount: number;
+    lastSyncDate: string | null;
+  };
+  onManualSync?: () => void;
 }
 
 const NotesToolbar: React.FC<NotesToolbarProps> = ({
@@ -38,6 +46,10 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
   onPrint,
   onDelete,
   isStarred,
+  isSaving = false,
+  isSyncing = false,
+  syncStatus,
+  onManualSync,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showAttachmentMenu, setShowAttachmentMenu] = useState(false);
@@ -53,6 +65,12 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
       { text: "Delete", style: "destructive", onPress: onDelete },
     ]);
     setShowMenu(false);
+  };
+
+  const handleManualSync = () => {
+    if (onManualSync) {
+      onManualSync();
+    }
   };
 
   const attachmentOptions = [
@@ -116,6 +134,12 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
       onPress: () => alert("Add tags not implemented"),
     },
     { label: "Save as file", onPress: onSaveAsFile },
+    {
+      label: syncStatus?.hasUnsyncedNotes
+        ? `Sync (${syncStatus.unsyncedCount})`
+        : "Sync",
+      onPress: handleManualSync,
+    },
   ];
 
   const menuFooterOptions = [
@@ -163,7 +187,15 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
               {option.icon && (
                 <Image source={option.icon} className="w-5 h-5" />
               )}
-              <Text className="text-base text-white ml-5">{option.label}</Text>
+              <Text
+                className={`text-base text-white ml-5 ${
+                  option.label?.includes("Sync") && syncStatus?.hasUnsyncedNotes
+                    ? "text-orange-400 font-semibold"
+                    : ""
+                }`}
+              >
+                {option.label}
+              </Text>
             </TouchableOpacity>
           ))}
           {withFooter && (
@@ -204,6 +236,30 @@ const NotesToolbar: React.FC<NotesToolbarProps> = ({
           className="text-2xl font-HelveticaNeueRoman text-black font-bold"
           style={{ padding: 0 }}
         />
+      </View>
+
+      {/* Status Indicators */}
+      <View className="flex-row items-center mr-2">
+        {isSaving && (
+          <View className="mr-2">
+            <Text className="text-xs text-blue-600">Saving...</Text>
+          </View>
+        )}
+        {isSyncing && (
+          <View className="mr-2">
+            <Text className="text-xs text-orange-600">Syncing...</Text>
+          </View>
+        )}
+        {syncStatus?.hasUnsyncedNotes && !isSyncing && (
+          <TouchableOpacity
+            onPress={handleManualSync}
+            className="mr-2 bg-orange-500 px-2 py-1 rounded"
+          >
+            <Text className="text-xs text-white font-semibold">
+              Sync ({syncStatus.unsyncedCount})
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Reading Mode Toggle */}

@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { useUserCache } from "@/lib/notes/useUserCache";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { useFonts } from "expo-font";
@@ -49,6 +50,7 @@ export default function RootLayout() {
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
         <ThemeProvider>
+          <UserCacheManager />
           <Stack>
             <Stack.Screen name="index" options={{ headerShown: false }} />
             <Stack.Screen name="(root)" options={{ headerShown: false }} />
@@ -61,4 +63,10 @@ export default function RootLayout() {
       </ClerkLoaded>
     </ClerkProvider>
   );
+}
+
+// Component to manage user cache
+function UserCacheManager() {
+  useUserCache(); // This hook handles user cache management
+  return null;
 }

@@ -3,8 +3,16 @@ import { useCallback, useEffect, useState } from "react";
 export const fetchAPI = async (url: string, options?: RequestInit) => {
     try {
         const response = await fetch(url, options);
+        
+        // Return the response object directly for sync operations
+        // that need to check response.ok
+        if (options?.method === "POST" || options?.method === "PUT" || options?.method === "DELETE") {
+            return response;
+        }
+        
+        // For GET requests, return the parsed JSON
         if (!response.ok) {
-            new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return await response.json();
     } catch (error) {
