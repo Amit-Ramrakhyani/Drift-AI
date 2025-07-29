@@ -3,10 +3,8 @@ import { icons } from "@/constants";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
   debounce,
-  formatTimestamp,
   getCurrentDate,
   getSyncStatus,
-  getTimeAgo,
   loadNoteForUserAndDate,
   saveNoteToCache,
   syncNotesToDatabase,
@@ -288,7 +286,7 @@ const Write = () => {
       />
 
       {/* Status Indicators */}
-      <View className="px-4 py-2 bg-gray-50 border-b border-gray-200">
+      {/* <View className="px-4 py-2 bg-gray-50 border-b border-gray-200">
         {lastSaved && (
           <Text className="text-xs text-gray-600 mb-1">
             Last saved: {formatTimestamp(lastSaved.getTime())}
@@ -305,7 +303,7 @@ const Write = () => {
             {getTimeAgo(new Date(syncStatus.lastSyncDate).getTime())}
           </Text>
         )}
-      </View>
+      </View> */}
 
       {/* Header Section */}
       <View className="flex-row justify-between items-start w-full px-4 pt-4 bg-gray-50">
