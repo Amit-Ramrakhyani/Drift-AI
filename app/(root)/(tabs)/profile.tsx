@@ -1,8 +1,11 @@
 import { icons } from "@/constants";
+import { fetchAPI } from "@/lib/fetch";
 import { useClerk, useUser } from "@clerk/clerk-expo";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Image,
   Linking,
@@ -11,6 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import ReactNativeModal from "react-native-modal";
 
 const personality = "Warrior";
 const supportEmail = "support@driftai.com";
@@ -19,6 +23,37 @@ const Profile = () => {
   const { user } = useUser();
   const { signOut } = useClerk();
   const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Delete account function
+  const deleteAccount = async () => {
+    try {
+      setIsDeleting(true);
+      if (!user?.id) {
+        throw new Error("User ID not found");
+      }
+
+      const response = await fetchAPI("/(api)/delete", {
+        method: "DELETE",
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete account");
+      }
+
+      console.log("Account deleted successfully");
+      setIsDeleting(false);
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      Alert.alert(
+        "Error",
+        error instanceof Error ? error.message : "Failed to delete account"
+      );
+      throw error;
+    }
+  };
 
   // Handlers for navigation
   const handleEditName = () => router.push("/(profile)/edit-name");
@@ -39,8 +74,14 @@ const Profile = () => {
         {
           text: "Delete",
           style: "destructive",
-          onPress: () => {
-            console.log("Delete account");
+          onPress: async () => {
+            try {
+              await deleteAccount();
+              await signOut();
+              router.push("/");
+            } catch (error) {
+              console.error("Error in delete account flow:", error);
+            }
           },
         },
       ]
@@ -163,6 +204,18 @@ const Profile = () => {
           <View className="h-40" />
         </ScrollView>
       </View>
+
+      <ReactNativeModal isVisible={isDeleting}>
+        <View className="bg-white px-7 py-9 rounded-2xl min-h-[200px]">
+          <ActivityIndicator size="large" color="black" />
+          <Text className="text-center text-3xl font-JakartaBold mt-10">
+            Deleting Account
+          </Text>
+          <Text className="text-center text-base font-Jakarta text-gray-400 mt-2">
+            Please wait while we delete your account.
+          </Text>
+        </View>
+      </ReactNativeModal>
     </View>
   );
 };
